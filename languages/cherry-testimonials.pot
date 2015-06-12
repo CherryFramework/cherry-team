@@ -1,0 +1,186 @@
+# Copyright (C) 2013 TODO
+# This file is distributed under the same license as the TODO package.
+msgid ""
+msgstr ""
+"Project-Id-Version: TODO 1.0.0\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/plugins/plugin-name\n"
+"POT-Creation-Date: 2014-08-20 15:31+0200\n"
+"PO-Revision-Date: 2014-08-20 15:31+0200\n"
+"Last-Translator: FULL NAME <email@example.com>\n"
+"Language-Team: LANGUAGE <translations@example.com >\n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.6.8\n"
+"X-Poedit-KeywordsList: __;_e;_n;_x;esc_html_e;esc_html__;esc_attr_e;"
+"esc_attr__;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2;_x:1,2c;_n:1,2\n"
+"X-Poedit-Basepath: ./\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Poedit-SearchPath-0: ..\n"
+
+#: ../admin/includes/class-cherry-testimonials-admin.php:97
+#: ../public/includes/class-cherry-testimonials-widget.php:291
+msgid "Title"
+msgstr ""
+
+#: ../admin/includes/class-cherry-testimonials-admin.php:98
+msgid "Author"
+msgstr ""
+
+#: ../admin/includes/class-cherry-testimonials-admin.php:99
+msgid "Thumbnail"
+msgstr ""
+
+#: ../admin/includes/class-cherry-testimonials-meta-boxes.php:45
+msgid "Testimonial Options"
+msgstr ""
+
+#: ../admin/includes/class-cherry-testimonials-meta-boxes.php:51
+msgid "Name:"
+msgstr ""
+
+#: ../admin/includes/class-cherry-testimonials-meta-boxes.php:52
+msgid "Enter author's name."
+msgstr ""
+
+#: ../admin/includes/class-cherry-testimonials-meta-boxes.php:57
+msgid "E-mail:"
+msgstr ""
+
+#: ../admin/includes/class-cherry-testimonials-meta-boxes.php:58
+msgid "Enter in an e-mail address."
+msgstr ""
+
+#: ../admin/includes/class-cherry-testimonials-meta-boxes.php:63
+msgid "URL:"
+msgstr ""
+
+#: ../admin/includes/class-cherry-testimonials-meta-boxes.php:64
+msgid "Enter a URL."
+msgstr ""
+
+#: ../admin/views/widget.php:11
+msgid "Title:"
+msgstr ""
+
+#: ../admin/views/widget.php:16
+msgid "Limit:"
+msgstr ""
+
+#: ../admin/views/widget.php:21
+msgid "Image Size (in pixels):"
+msgstr ""
+
+#: ../admin/views/widget.php:27
+msgid "Display Author"
+msgstr ""
+
+#: ../admin/views/widget.php:32
+msgid "Display Avatar"
+msgstr ""
+
+#: ../admin/views/widget.php:36
+msgid "Specific ID:"
+msgstr ""
+
+#: ../admin/views/widget.php:39
+msgid "Testimonials Post IDs, separated by commas."
+msgstr ""
+
+#: ../admin/views/widget.php:42
+msgid "Order By:"
+msgstr ""
+
+#: ../admin/views/widget.php:51
+msgid "Order Direction:"
+msgstr ""
+
+#: ../admin/views/widget.php:60
+msgid "Custom CSS Class:"
+msgstr ""
+
+#: ../public/includes/class-cherry-testimonials-data.php:445
+msgid "<span class=\"meta-nav\">&larr;</span> Older posts"
+msgstr ""
+
+#: ../public/includes/class-cherry-testimonials-data.php:453
+msgid "Newer posts <span class=\"meta-nav\">&rarr;</span>"
+msgstr ""
+
+#: ../public/includes/class-cherry-testimonials-page-template.php:58
+#: ../public/includes/class-cherry-testimonials-registration.php:53
+msgid "Testimonials"
+msgstr ""
+
+#: ../public/includes/class-cherry-testimonials-registration.php:54
+msgid "Testimonial"
+msgstr ""
+
+#: ../public/includes/class-cherry-testimonials-registration.php:55
+msgid "Add New"
+msgstr ""
+
+#: ../public/includes/class-cherry-testimonials-registration.php:56
+msgid "Add New Testimonial"
+msgstr ""
+
+#: ../public/includes/class-cherry-testimonials-registration.php:57
+msgid "Edit Testimonial"
+msgstr ""
+
+#: ../public/includes/class-cherry-testimonials-registration.php:58
+msgid "New Testimonial"
+msgstr ""
+
+#: ../public/includes/class-cherry-testimonials-registration.php:59
+msgid "View Testimonial"
+msgstr ""
+
+#: ../public/includes/class-cherry-testimonials-registration.php:60
+msgid "Search Testimonials"
+msgstr ""
+
+#: ../public/includes/class-cherry-testimonials-registration.php:61
+msgid "No testimonials found"
+msgstr ""
+
+#: ../public/includes/class-cherry-testimonials-registration.php:62
+msgid "No testimonials found in trash"
+msgstr ""
+
+#: ../public/includes/class-cherry-testimonials-widget.php:42
+msgid "Cherry Testimonials"
+msgstr ""
+
+#: ../public/includes/class-cherry-testimonials-widget.php:45
+msgid "Your site's most recent Testimonials."
+msgstr ""
+
+#: ../public/includes/class-cherry-testimonials-widget.php:289
+msgid "No Order"
+msgstr ""
+
+#: ../public/includes/class-cherry-testimonials-widget.php:290
+msgid "Entry ID"
+msgstr ""
+
+#: ../public/includes/class-cherry-testimonials-widget.php:292
+msgid "Date Added"
+msgstr ""
+
+#: ../public/includes/class-cherry-testimonials-widget.php:293
+msgid "Attributes Order"
+msgstr ""
+
+#: ../public/includes/class-cherry-testimonials-widget.php:294
+msgid "Random Order"
+msgstr ""
+
+#: ../public/includes/class-cherry-testimonials-widget.php:306
+msgid "Ascending"
+msgstr ""
+
+#: ../public/includes/class-cherry-testimonials-widget.php:307
+msgid "Descending"
+msgstr ""
