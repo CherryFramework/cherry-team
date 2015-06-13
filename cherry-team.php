@@ -52,7 +52,8 @@ if ( !class_exists( 'Cherry_Team' ) ) {
 			add_action( 'plugins_loaded', array( $this, 'admin' ), 4 );
 
 			// Load public-facing style sheet and JavaScript.
-			add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_styles' ), 20 );
+			add_action( 'wp_enqueue_scripts',         array( $this, 'enqueue_styles' ), 20 );
+			add_filter( 'cherry_compiler_static_css', array( $this, 'add_style_to_compiler' ) );
 			add_action( 'wp_head', array( $this, 'add_icons_font' ), 99 );
 
 			// Adds options.
@@ -163,6 +164,22 @@ if ( !class_exists( 'Cherry_Team' ) ) {
 		 */
 		public function enqueue_styles() {
 			wp_enqueue_style( 'cherry-team', CHERRY_TEAM_URI.'public/assets/css/style.css', '', CHERRY_TEAM_VERSION );
+		}
+
+		/**
+		 * Pass style handle to CSS compiler.
+		 *
+		 * @since 1.0.0
+		 *
+		 * @param array $handles CSS handles to compile.
+		 */
+		function add_style_to_compiler( $handles ) {
+			$handles = array_merge(
+				array( 'cherry-team' => plugins_url( 'public/assets/css/style.css', __FILE__ ) ),
+				$handles
+			);
+
+			return $handles;
 		}
 
 		/**
