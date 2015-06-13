@@ -1,5 +1,6 @@
 # Cherry Team
 A team management plugin for WordPress.
+__Сompatibility: *Cherry Framewokr v.4+*__
 
 ## Features
 * CPT Team
