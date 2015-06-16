@@ -93,7 +93,7 @@ class Cherry_Team_shortcode {
 
 		$terms_list = array();
 		if ( ! is_wp_error( $terms ) ) {
-			$terms_list = wp_list_pluck( $terms, 'name', 'term_id' );
+			$terms_list = wp_list_pluck( $terms, 'name', 'slug' );
 		}
 
 		$sizes_list = array();
