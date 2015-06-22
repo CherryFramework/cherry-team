@@ -250,7 +250,7 @@ class Cherry_Team_Data {
 				$this->query_args['tax_query'] = array(
 					array(
 						'taxonomy' => 'group',
-						'field'    => 'term_id',
+						'field'    => 'slug',
 						'terms'    => $group
 					)
 				);
@@ -284,7 +284,7 @@ class Cherry_Team_Data {
 			} else {
 
 				$this->query_args['ignore_sticky_posts'] = 1;
-				$this->query_args['post__in'] = $ids;
+				$this->query_args['post__in']            = $ids;
 
 			}
 
@@ -294,8 +294,7 @@ class Cherry_Team_Data {
 		if ( !in_array( $this->query_args['orderby'], array( 'none', 'ID', 'author', 'title', 'date', 'modified', 'parent', 'rand', 'comment_count', 'menu_order', 'meta_value', 'meta_value_num' ) ) ) {
 			$this->query_args['orderby'] = 'date';
 		}
-
-		if ( !in_array( $this->query_args['order'], array( 'ASC', 'DESC' ) ) ) {
+		if ( ! in_array( strtoupper( $this->query_args['order'] ), array( 'ASC', 'DESC' ) ) ) {
 			$this->query_args['order'] = 'DESC';
 		}
 

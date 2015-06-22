@@ -25,4 +25,4 @@ Fire the action *'cherry_get_team'*. Example:
 Just drop widget to the your sidebar.
 
 ## Help
-Found a bug? Feature requests? [Create an issue - Thanks!](https://github.com/cheh/cherry-team/issues/new)
+Found a bug? Feature requests? [Create an issue - Thanks!](https://github.com/CherryFramework/cherry-team/issues/new)
