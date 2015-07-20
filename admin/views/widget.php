@@ -36,7 +36,7 @@
 	<label for="<?php echo $this->get_field_id( 'specific_id' ); ?>"><?php _e( 'Specific ID:', 'cherry-team' ); ?></label>
 	<input type="text" name="<?php echo $this->get_field_name( 'specific_id' ); ?>" value="<?php echo $specific_id; ?>" class="widefat" id="<?php echo $this->get_field_id( 'specific_id' ); ?>" />
 </p>
-<p><small><?php _e( 'Testimonials Post IDs, separated by commas.', 'cherry-team' ); ?></small></p>
+<p><small><?php _e( 'Post IDs, separated by commas.', 'cherry-team' ); ?></small></p>
 <!-- Widget Order By: Select Input -->
 <p>
 	<label for="<?php echo $this->get_field_id( 'orderby' ); ?>"><?php _e( 'Order By:', 'cherry-team' ); ?></label>
