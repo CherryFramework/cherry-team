@@ -189,7 +189,7 @@ class Cherry_Team_shortcode {
 					'type'    => 'responsive',
 					'default' => '12 6 3 none',
 					'name'    => __( 'Column class', 'cherry-team' ),
-					'desc'    => __( 'Column class for each items.', 'cherry-team' ),
+					'desc'    => __( 'Column class for each item.', 'cherry-team' ),
 				),
 				'template' => array(
 					'type'   => 'select',
@@ -343,7 +343,7 @@ class Cherry_Team_shortcode {
 			),
 			'location' => array(
 				'id'    => 'cherry_location',
-				'value' => __( 'Person Loaction', 'cherry-team' ),
+				'value' => __( 'Person Location', 'cherry-team' ),
 				'open'  => '%%LOCATION%%',
 				'close' => ''
 			),

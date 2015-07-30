@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: blank\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-07-20 17:05+0300\n"
+"POT-Creation-Date: 2015-07-30 16:53+0300\n"
 "PO-Revision-Date: 2015-04-06 06:14+0300\n"
 "Last-Translator: Vladimir Anokhin <ano.vladimir@gmail.com>\n"
 "Language-Team: Cherry Team <support@cherryframework.com>\n"
@@ -15,7 +15,7 @@ msgstr ""
 "esc_attr__;_x:1,2c;_n:1,2\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-SourceCharset: UTF-8\n"
-"X-Generator: Poedit 1.8.2\n"
+"X-Generator: Poedit 1.8.3\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Poedit-SearchPath-0: .\n"
 
@@ -376,7 +376,7 @@ msgid "Column class"
 msgstr ""
 
 #: public/includes/class-cherry-team-shortcode.php:192
-msgid "Column class for each items."
+msgid "Column class for each item."
 msgstr ""
 
 #: public/includes/class-cherry-team-shortcode.php:200
@@ -432,7 +432,7 @@ msgid "Person Position"
 msgstr ""
 
 #: public/includes/class-cherry-team-shortcode.php:346
-msgid "Person Loaction"
+msgid "Person Location"
 msgstr ""
 
 #: public/includes/class-cherry-team-shortcode.php:352
