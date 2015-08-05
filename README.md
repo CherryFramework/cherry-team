@@ -1,6 +1,21 @@
 # Cherry Team
 A team management plugin for WordPress.
-__Сompatibility: *Cherry Framewokr v.4+*__
+Сompatibility: *Cherry Framewokr v.4+*
+
+##Change log##
+
+#### v1.0.2 ####
+
+* UPD: Optimize a shortcode registration
+* UPD: Optimize conditional rule for a `pre_get_posts` filter
+* UPD: Text to translate
+* FIX: FIX: archive-team.php
+
+#### v1.0.1 ####
+
+* ADD: compatibility for wpml-plugin
+* DEL: `cherry_display_sidebar` filter
+* UPD: Updater logic
 
 ## Features
 * CPT Team
