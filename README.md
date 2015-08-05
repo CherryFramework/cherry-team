@@ -9,7 +9,7 @@ A team management plugin for WordPress.
 * UPD: Optimize a shortcode registration
 * UPD: Optimize conditional rule for a `pre_get_posts` filter
 * UPD: Text to translate
-* FIX: FIX: archive-team.php
+* FIX: archive-team.php file
 
 #### v1.0.1 ####
 
