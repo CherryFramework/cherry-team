@@ -2,6 +2,9 @@
 /**
  * The Template for displaying archive CPT Team.
  */
+
+global $wp_query;
+
 $args = array(
 	'template'     => 'default.tmpl',
 	'custom_class' => 'team-listing row',
@@ -13,7 +16,8 @@ $args = array(
 	'col_lg'       => false,
 	'size'         => 'thumbnail',
 	'pager'        => true,
-	'limit'        => Cherry_Team_Templater::$posts_per_archive_page
+	'limit'        => Cherry_Team_Templater::$posts_per_archive_page,
+	'group'        => !empty( $wp_query->query_vars['term'] ) ? $wp_query->query_vars['term'] : '',
 );
 $data = new Cherry_Team_Data;
 $data->the_team( $args );
