@@ -39,7 +39,19 @@
   content: ""; }
 
 .team-listing {
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  -webkit-align-items: flex-start;
+  -ms-flex-align: start;
+  align-items: flex-start;
+  align-content: stretch;
   padding: 20px 0; }
+  .team-listing:before, .team-listing:after {
+    display: none; }
   .team-listing_item {
     text-align: center; }
   .team-listing_photo {
