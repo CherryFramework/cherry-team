@@ -209,9 +209,9 @@ if ( !class_exists( 'Cherry_Team' ) ) {
 
 			wp_register_style(
 				'font-awesome',
-				'//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css',
+				'//maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css',
 				false,
-				'4.3.0',
+				'4.4.0',
 				'all'
 			);
 
