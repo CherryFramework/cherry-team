@@ -3,7 +3,7 @@
  * Plugin Name: Cherry Team
  * Plugin URI:  http://www.cherryframework.com/
  * Description: A team management plugin for WordPress.
- * Version:     1.0.2
+ * Version:     1.0.3
  * Author:      Cherry Team
  * Author URI:  http://www.cherryframework.com/
  * Text Domain: cherry-team
@@ -84,7 +84,7 @@ if ( !class_exists( 'Cherry_Team' ) ) {
 			 *
 			 * @since 1.0.0
 			 */
-			define( 'CHERRY_TEAM_VERSION', '1.0.2' );
+			define( 'CHERRY_TEAM_VERSION', '1.0.3' );
 
 			/**
 			 * Set the slug of the plugin.
