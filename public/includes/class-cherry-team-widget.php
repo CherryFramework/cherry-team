@@ -165,6 +165,9 @@ class Cherry_Team_Widget extends WP_Widget {
 		// Make sure we return and don't echo.
 		$atts['echo'] = false;
 
+		// set columns for team widget
+		$atts['col_xs'] = 12;
+
 		/**
 		 * Filter the array of widget arguments.
 		 *
