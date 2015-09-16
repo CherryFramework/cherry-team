@@ -314,57 +314,8 @@ class Cherry_Team_Data {
 			return false;
 		}
 
-		foreach ( $query->posts as $i => $post ) {
-
-			// Get the post image.
-			$query->posts[ $i ]->image = $this->get_image( $post->ID, $args['size'] );
-
-			// Get the post meta data.
-			$post_meta = get_post_meta( $post->ID, CHERRY_TEAM_POSTMETA, true );
-
-			if ( !empty( $post_meta ) ) {
-
-				// Adds new property to the post object.
-				$query->posts[ $i ]->{CHERRY_TEAM_POSTMETA} = $post_meta;
-
-			}
-
-		}
-
 		return $query;
 
-	}
-
-	/**
-	 * Get the image for the given ID. If no featured image, check for Gravatar e-mail.
-	 *
-	 * @since  1.0.0
-	 * @param  int              $id   The post ID.
-	 * @param  string|array|int $size The image dimension.
-	 * @return string
-	 */
-	public function get_image( $id, $size ) {
-
-		if ( ! has_post_thumbnail( $id ) ) {
-			return false;
-		}
-
-		$image = '';
-
-		// If not a string or an array, and not an integer, default to 150x9999.
-		if ( is_integer( $size ) ) {
-			$size = array( $size, $size );
-		} elseif ( ! is_string( $size ) ) {
-			$size = 'thumbnail';
-		}
-
-		$image = get_the_post_thumbnail(
-			intval( $id ),
-			$size,
-			array( 'class' => 'avatar', 'alt' => get_the_title( $id ) )
-		);
-
-		return $image;
 	}
 
 	/**
@@ -470,8 +421,8 @@ class Cherry_Team_Data {
 			return false;
 		}
 
-		$macros = '/%%([a-zA-Z]+[^%]{2})(=[\'\"]([a-zA-Z0-9-_\s]+)[\'\"])?%%/';
-		$this->setup_template_data( $args );
+		$macros    = '/%%([a-zA-Z]+[^%]{2})(=[\'\"]([a-zA-Z0-9-_\s]+)[\'\"])?%%/';
+		$callbacks = $this->setup_template_data( $args );
 
 		foreach ( $query->posts as $post ) {
 
@@ -515,6 +466,8 @@ class Cherry_Team_Data {
 
 			$output .= '</div><!--/.team-item-->';
 
+			$callbacks->clear_data();
+
 		}
 
 		// Restore the global $post variable.
@@ -550,6 +503,8 @@ class Cherry_Team_Data {
 		);
 
 		$this->post_data = apply_filters( 'cherry_team_data_callbacks', $data, $atts );
+
+		return $callbacks;
 
 	}
 

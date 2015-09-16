@@ -28,13 +28,105 @@ class Cherry_Team_Template_Callbacks {
 	public $atts = array();
 
 	/**
+	 * Specific post data
+	 * @var array
+	 */
+	public $post_data = array();
+
+	/**
 	 * Current post team-related meta
 	 * @var array
 	 */
-	public static $post_meta = array();
+	public $post_meta = null;
 
 	function __construct( $atts ) {
 		$this->atts = $atts;
+	}
+
+	/**
+	 * Clear post data after loop iteration
+	 *
+	 * @since  1.0.3
+	 * @return void
+	 */
+	public function clear_data() {
+		$this->post_meta = null;
+		$this->post_data = array();
+	}
+
+	/**
+	 * Get post meta
+	 *
+	 * @since 1.0.3
+	 */
+	public function get_meta() {
+		if ( null == $this->post_meta ) {
+			global $post;
+			$this->post_meta = get_post_meta( $post->ID, CHERRY_TEAM_POSTMETA, true );
+		}
+		return $this->post_meta;
+	}
+
+	/**
+	 * Get post title
+	 *
+	 * @since  1.0.3
+	 * @return string
+	 */
+	public function post_title() {
+		if ( ! isset( $this->post_data['title'] ) ) {
+			$this->post_data['title'] = get_the_title();
+		}
+		return $this->post_data['title'];
+	}
+
+	/**
+	 * Get post permalink
+	 *
+	 * @since  1.0.3
+	 * @return string
+	 */
+	public function post_permalink() {
+		if ( ! isset( $this->post_data['permalink'] ) ) {
+			$this->post_data['permalink'] = get_permalink();
+		}
+		return $this->post_data['permalink'];
+	}
+
+	/**
+	 * Get the image for the given ID. If no featured image, check for Gravatar e-mail.
+	 *
+	 * @since  1.0.3
+	 * @return string
+	 */
+	public function post_image() {
+
+		global $post;
+
+		if ( ! isset( $this->post_data['image'] ) ) {
+
+			if ( ! has_post_thumbnail( $post->ID ) ) {
+				return false;
+			}
+
+			$this->post_data['image'] = '';
+
+			// If not a string or an array, and not an integer, default to 150x9999.
+			$size = isset( $this->atts['size'] ) ? $this->atts['size'] : 150;
+			if ( is_integer( $size ) ) {
+				$size = array( $size, $size );
+			} elseif ( ! is_string( $size ) ) {
+				$size = 'thumbnail';
+			}
+
+			$this->post_data['image'] = get_the_post_thumbnail(
+				intval( $post->ID ),
+				$size,
+				array( 'class' => 'avatar', 'alt' => $this->post_title() )
+			);
+		}
+
+		return $this->post_data['image'];
 	}
 
 	/**
@@ -45,7 +137,7 @@ class Cherry_Team_Template_Callbacks {
 
 		global $post;
 
-		$photo = ( isset( $post->image ) && $post->image ) ? $post->image  : '';
+		$photo = $this->post_image();
 
 		if ( ! $photo ) {
 			return;
@@ -53,7 +145,7 @@ class Cherry_Team_Template_Callbacks {
 
 		if ( 'link' == $link ) {
 			$format = '<a href="%2$s">%1$s</a>';
-			$link   = get_permalink( $post->ID );
+			$link   = $this->post_permalink();
 		} else {
 			$format = '%1$s';
 			$link   = false;
@@ -72,7 +164,7 @@ class Cherry_Team_Template_Callbacks {
 	public function get_name() {
 		global $post;
 		if ( true === $this->atts['show_name'] ) {
-			return get_the_title( $post->ID );
+			return $this->post_title();
 		}
 	}
 
@@ -84,7 +176,7 @@ class Cherry_Team_Template_Callbacks {
 
 		global $post;
 
-		$meta     = ( isset( $post->{CHERRY_TEAM_POSTMETA} ) ) ? $post->{CHERRY_TEAM_POSTMETA} : false;
+		$meta     = $this->get_meta();
 		$position = ( ! empty( $meta['position'] ) ) ? $this->meta_wrap( $meta['position'], 'position' ) : '';
 
 		return $position;
@@ -98,7 +190,7 @@ class Cherry_Team_Template_Callbacks {
 
 		global $post;
 
-		$meta     = ( isset( $post->{CHERRY_TEAM_POSTMETA} ) ) ? $post->{CHERRY_TEAM_POSTMETA} : false;
+		$meta     = $this->get_meta();
 		$location = ( ! empty( $meta['location'] ) ) ? $this->meta_wrap( $meta['location'], 'location' ) : '';
 
 		return $location;
@@ -112,7 +204,7 @@ class Cherry_Team_Template_Callbacks {
 
 		global $post;
 
-		$meta  = ( isset( $post->{CHERRY_TEAM_POSTMETA} ) ) ? $post->{CHERRY_TEAM_POSTMETA} : false;
+		$meta  = $this->get_meta();
 		$email = ( ! empty( $meta['email'] ) )
 						? $this->meta_wrap( $this->mail_wrap( $meta['email'] ), 'email' )
 						: '';
@@ -128,7 +220,7 @@ class Cherry_Team_Template_Callbacks {
 
 		global $post;
 
-		$meta     = ( isset( $post->{CHERRY_TEAM_POSTMETA} ) ) ? $post->{CHERRY_TEAM_POSTMETA} : false;
+		$meta     = $this->get_meta();
 		$telephone = ( ! empty( $meta['telephone'] ) ) ? $this->meta_wrap( $meta['telephone'], 'telephone' ) : '';
 
 		return $telephone;
@@ -141,7 +233,7 @@ class Cherry_Team_Template_Callbacks {
 
 		global $post;
 
-		$meta    = ( isset( $post->{CHERRY_TEAM_POSTMETA} ) ) ? $post->{CHERRY_TEAM_POSTMETA} : false;
+		$meta    = $this->get_meta();
 		$website = ( ! empty( $meta['website'] ) )
 					? $this->meta_wrap( $this->get_website_html( $meta['website'] ), 'website' )
 					: '';
@@ -157,8 +249,6 @@ class Cherry_Team_Template_Callbacks {
 	public function get_excerpt() {
 
 		global $post;
-
-		$post_type = get_post_type( $post->ID );
 
 		$excerpt = has_excerpt( $post->ID ) ? apply_filters( 'the_excerpt', get_the_excerpt() ) : '';
 
@@ -205,7 +295,7 @@ class Cherry_Team_Template_Callbacks {
 	public function get_socials() {
 
 		global $post;
-		$meta = ( isset( $post->{CHERRY_TEAM_POSTMETA} ) ) ? $post->{CHERRY_TEAM_POSTMETA} : false;
+		$meta = $this->get_meta();
 
 		if ( empty( $meta['socials'] ) ) {
 			return;
@@ -233,7 +323,7 @@ class Cherry_Team_Template_Callbacks {
 			$icon  = esc_attr( $data['font-class'] );
 			$label = esc_attr( $data['link-label'] );
 
-			$label = sprintf( $label, get_the_title( $post->ID ) );
+			$label = sprintf( $label, $this->post_title() );
 
 			$result .= sprintf( $format, $url, $icon, $label );
 
@@ -250,7 +340,7 @@ class Cherry_Team_Template_Callbacks {
 	 */
 	public function get_link() {
 		global $post;
-		return get_permalink( $post->ID );
+		return $this->post_permalink();
 	}
 
 	/**
