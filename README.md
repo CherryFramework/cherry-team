@@ -4,6 +4,11 @@ A team management plugin for WordPress.
 
 ##Change log##
 
+#### v1.0.3 ####
+
+* UPD: Minify CSS and JS
+* UPD: Improve performance for macros callbacks
+
 #### v1.0.2 ####
 
 * UPD: Optimize a shortcode registration
