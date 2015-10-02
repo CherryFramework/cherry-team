@@ -237,10 +237,15 @@ class Cherry_Team_Meta_Boxes {
 		if ( ! isset( $_POST[ CHERRY_TEAM_POSTMETA ] ) || empty( $_POST[ CHERRY_TEAM_POSTMETA ] ) ) {
 			return;
 		}
+		// Check if socials have empty value.
+		if( !isset( $_POST[ CHERRY_TEAM_POSTMETA ]['socials'] ) ){
+			$_POST[ CHERRY_TEAM_POSTMETA ]['socials'] = array();
+		}
 
 		foreach ( $_POST[ CHERRY_TEAM_POSTMETA ] as $key => $value ) {
 
 			if ( 'socials' == $key ) {
+
 				$new_meta_value[ $key ] = $this->sanitize_socials( $value );
 				continue;
 			}
