@@ -4,6 +4,17 @@ A team management plugin for WordPress.
 
 ##Change log##
 
+#### v1.0.4 ####
+
+* FIX: Display flex on iOS
+* FIX: Add CSS clearings to prevent layout breaking
+* FIX: Prevent adding empty items into social list
+
+#### v1.0.3 ####
+
+* UPD: Minify CSS and JS
+* UPD: Improve performance for macros callbacks
+
 #### v1.0.2 ####
 
 * UPD: Optimize a shortcode registration
@@ -33,7 +44,7 @@ Insert a shortcode `[cherry_team]` to the post/page content.
 #### In a page template
 Fire the action *'cherry_get_team'*. Example:
 ```
-	do_action( 'cherry_get_team' );
+    do_action( 'cherry_get_team' );
 ```
 
 #### In a sidebar

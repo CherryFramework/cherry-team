@@ -439,15 +439,17 @@ class Cherry_Team_Data {
 			$tpl = preg_replace_callback( $macros, array( $this, 'replace_callback' ), $tpl );
 
 			$item_classes   = array( $args['item_class'], 'item-' . $count, 'clearfix' );
-			$item_classes[] = ( $count++ % 2 ) ? 'odd' : 'even';
+			$item_classes[] = ( $count % 2 ) ? 'odd' : 'even';
 
 			foreach ( array( 'col_xs', 'col_sm', 'col_md', 'col_lg' ) as $col ) {
 				if ( ! $args[$col] || 'none' == $args[$col] ) {
 					continue;
 				}
 				$item_classes[] = str_replace( '_', '-', $col ) . '-' . absint( $args[$col] );
+				$item_classes[] = ( ( $count - 1 ) % floor( 12 / absint( $args[$col] ) ) ) ? '' : 'clear-' . str_replace( '_', '-', $col );
 			}
 
+			$count++;
 
 			$item_class = implode( ' ', array_filter( $item_classes ) );
 

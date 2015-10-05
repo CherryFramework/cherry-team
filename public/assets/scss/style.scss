@@ -64,12 +64,9 @@
 
 .team-listing {
 	display: -ms-flexbox;
-	display: -webkit-flex;
 	display: flex;
-	-webkit-flex-wrap: wrap;
 	-ms-flex-wrap: wrap;
 	flex-wrap: wrap;
-	-webkit-align-items: flex-start;
 	-ms-flex-align: start;
 	align-items: flex-start;
 	align-content: stretch;
@@ -80,12 +77,47 @@
 	}
 	&_item {
 		text-align: center;
+		&.clear-col-lg {
+			@media ( min-width: 1200px ) {
+				clear: both;
+			}
+		}
+
+		&.clear-col-md {
+			@media ( min-width: 1200px ) {
+				clear: none;
+			}
+			@media ( min-width: 992px ) {
+				clear: both;
+			}
+		}
+
+		&.clear-col-sm {
+			@media ( min-width: 768px ) and ( max-width: 991px ) {
+				clear: both;
+			}
+		}
+
+		&.clear-col-xs {
+			@media ( max-width: 768px ) {
+				clear: both;
+			}
+		}
 	}
 	&_photo {
 		text-align: center;
 		img {
 			margin: 0 auto;
 		}
+	}
+}
+
+.team-wrap {
+	&:after {
+		clear: both;
+		content: "";
+		width: 100%;
+		display: block;
 	}
 }
 
