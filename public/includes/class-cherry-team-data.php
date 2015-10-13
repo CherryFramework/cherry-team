@@ -145,18 +145,24 @@ class Cherry_Team_Data {
 			return;
 		}
 
-		$css_class = '';
+		$css_classes = array();
 
-		if ( !empty( $args['wrap_class'] ) ) {
-			$css_class .= esc_attr( $args['wrap_class'] ) . ' ';
+		if ( ! empty( $args['wrap_class'] ) ) {
+			$css_classes[] = esc_attr( $args['wrap_class'] );
 		}
 
-		if ( !empty( $args['class'] ) ) {
-			$css_class .= esc_attr( $args['class'] );
+		if ( ! empty( $args['template'] ) ) {
+			$css_classes[] = $this->get_template_class( $args['template'] );
 		}
+
+		if ( ! empty( $args['class'] ) ) {
+			$css_classes[] = esc_attr( $args['class'] );
+		}
+
+		$css_class = implode( ' ', $css_classes );
 
 		// Open wrapper.
-		$output .= sprintf( '<div class="%s">', trim( $css_class ) );
+		$output .= sprintf( '<div class="%s">', $css_class );
 
 		if ( !empty( $args['title'] ) ) {
 			$output .= $args['before_title'] . $args['title'] . $args['after_title'];
@@ -636,11 +642,31 @@ class Cherry_Team_Data {
 			$file = $default;
 		}
 
-		if ( !empty( $file ) ) {
+		if ( ! empty( $file ) ) {
 			$content = self::get_contents( $file );
 		}
 
 		return $content;
+	}
+
+	/**
+	 * Get CSS class name for shortcode by template name
+	 *
+	 * @since  1.0.5
+	 * @param  string $template template name
+	 * @return string|bool false
+	 */
+	public function get_template_class( $template ) {
+
+		if ( ! $template ) {
+			return false;
+		}
+
+		// Use the same filter for all cherry-related shortcodes
+		$prefix = apply_filters( 'cherry_shortcodes_template_class_prefix', 'template' );
+		$class  = sprintf( '%s-%s', esc_attr( $prefix ), esc_attr( str_replace( '.tmpl', '', $template ) ) );
+
+		return $class;
 	}
 
 	/**
