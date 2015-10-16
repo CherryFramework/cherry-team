@@ -451,8 +451,19 @@ class Cherry_Team_Data {
 				if ( ! $args[$col] || 'none' == $args[$col] ) {
 					continue;
 				}
+
+				$cols = absint( $args[$col] );
+
+				if ( 12 < $cols ) {
+					$cols = 12;
+				}
+
+				if ( 0 === $cols ) {
+					$cols = 1;
+				}
+
 				$item_classes[] = str_replace( '_', '-', $col ) . '-' . absint( $args[$col] );
-				$item_classes[] = ( ( $count - 1 ) % floor( 12 / absint( $args[$col] ) ) ) ? '' : 'clear-' . str_replace( '_', '-', $col );
+				$item_classes[] = ( ( $count - 1 ) % floor( 12 / $cols ) ) ? '' : 'clear-' . str_replace( '_', '-', $col );
 			}
 
 			$count++;
