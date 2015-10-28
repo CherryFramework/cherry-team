@@ -77,6 +77,7 @@
 	}
 	&_item {
 		text-align: center;
+		padding-bottom: 30px;
 		&.clear-col-lg {
 			@media ( min-width: 1200px ) {
 				clear: both;
