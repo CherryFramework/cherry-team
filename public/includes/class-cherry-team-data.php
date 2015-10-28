@@ -587,11 +587,38 @@ class Cherry_Team_Data {
 		}
 
 		if ( is_array( $team_meta['socials'] ) && ! empty( $team_meta['socials'] ) ) {
-			$urls = wp_list_pluck( $team_meta['socials'], 'external-link' );
+			$urls           = $this->get_social_urls( $team_meta['socials'] );
 			$data['sameAs'] = $urls;
 		}
 
 		printf( $result, json_encode( $data ) );
+
+	}
+
+	/**
+	 * Callback function for social array walker
+	 *
+	 * @since  1.0.5
+	 * @param  array $socials socials array.
+	 * @return void
+	 */
+	public function get_social_urls( $socials ) {
+
+		$urls = array();
+
+		if ( ! is_array( $socials ) ) {
+			return $urls;
+		}
+
+		foreach ( $socials as $key => $data ) {
+			if ( ! isset( $data['external-link'] ) ) {
+				continue;
+			}
+
+			$urls[] = esc_url( $data['external-link'] );
+		}
+
+		return $urls;
 
 	}
 
