@@ -81,25 +81,26 @@ class Cherry_Team_Admin {
 	<?php }
 
 	/**
-	 * Filters the columns on the "Testimonials" screen.
+	 * Filters the columns on the "Team" screen.
 	 *
 	 * @since  1.0.0
 	 * @param  array $post_columns
 	 * @return array
 	 */
 	public function edit_team_columns( $post_columns ) {
-		// Adds the checkbox column.
-		$columns['cb'] = $post_columns['cb'];
+		unset(
+			$post_columns[ 'taxonomy-group' ],
+			$post_columns['date']
+		);
 
-		// Add custom columns and overwrite the 'title' column.
-		$columns['title']     = __( 'Name', 'cherry-team' );
-		$columns['thumbnail'] = __( 'Photo', 'cherry-team' );
-		$columns['position']  = __( 'Position', 'cherry-team' );
-		$columns['group']     = __( 'Group', 'cherry-team' );
-		$columns['date']      = __( 'Added', 'cherry-team' );
+		// Add custom columns.
+		$post_columns['thumbnail'] = __( 'Photo', 'cherry-team' );
+		$post_columns['position']  = __( 'Position', 'cherry-team' );
+		$post_columns['group']     = __( 'Group', 'cherry-team' );
+		$post_columns['date']      = __( 'Added', 'cherry-team' );
 
 		// Return the columns.
-		return $columns;
+		return $post_columns;
 	}
 
 	/**
