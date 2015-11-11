@@ -141,7 +141,7 @@ class Cherry_Team_Templater {
 	 * Checks if the template is assigned to the page.
 	 *
 	 * @since  1.0.0
-	 * @param  string $template.
+	 * @param  string $template current template name.
 	 * @return string
 	 */
 	public function view_template( $template ) {

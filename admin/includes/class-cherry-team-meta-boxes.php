@@ -131,7 +131,7 @@ class Cherry_Team_Meta_Boxes {
 						'description'	=> '',
 						'value'			=> $socials,
 					),
-				)
+				),
 			)
 		);
 

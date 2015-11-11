@@ -89,11 +89,13 @@ class Cherry_Team_Widget extends WP_Widget {
 		// Check if there is a cached output.
 		$cache = wp_cache_get( $this->get_widget_slug(), 'widget' );
 
-		if ( ! is_array( $cache ) )
+		if ( ! is_array( $cache ) ) {
 			$cache = array();
+		}
 
-		if ( ! isset( $args['widget_id'] ) )
+		if ( ! isset( $args['widget_id'] ) ) {
 			$args['widget_id'] = $this->widget_slug;
+		}
 
 		if ( isset( $cache[ $args['widget_id'] ] ) ) {
 			return print $cache[ $args['widget_id'] ];
