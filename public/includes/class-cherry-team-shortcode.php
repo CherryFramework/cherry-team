@@ -69,6 +69,7 @@ class Cherry_Team_shortcode {
 	 * @since 1.0.0
 	 */
 	public function register_shortcode() {
+
 		/**
 		 * Filters a shortcode name.
 		 *
@@ -88,6 +89,7 @@ class Cherry_Team_shortcode {
 	 * @return array               Modified array.
 	 */
 	public function shortcodes( $shortcodes ) {
+
 		$terms_list = array();
 
 		if ( did_action( 'wp_ajax_cherry_shortcodes_generator_settings' ) ) {
@@ -116,17 +118,17 @@ class Cherry_Team_shortcode {
 					'step'    => 1,
 					'default' => 3,
 					'name'    => __( 'Limit', 'cherry-team' ),
-					'desc'    => __( 'Maximum number of posts.', 'cherry-team' )
+					'desc'    => __( 'Maximum number of posts.', 'cherry-team' ),
 				),
 				'order' => array(
 					'type' => 'select',
 					'values' => array(
 						'desc' => __( 'Descending', 'cherry-team' ),
-						'asc'  => __( 'Ascending', 'su' )
+						'asc'  => __( 'Ascending', 'su' ),
 					),
 					'default' => 'DESC',
 					'name' => __( 'Order', 'cherry-team' ),
-					'desc' => __( 'Posts order', 'cherry-team' )
+					'desc' => __( 'Posts order', 'cherry-team' ),
 				),
 				'orderby' => array(
 					'type' => 'select',
@@ -140,11 +142,11 @@ class Cherry_Team_shortcode {
 						'modified'      => __( 'Last modified date', 'cherry-team' ),
 						'rand'          => __( 'Random', 'cherry-team' ),
 						'comment_count' => __( 'Comments number', 'cherry-team' ),
-						'menu_order'    => __( 'Menu order', 'cherry-team' )
+						'menu_order'    => __( 'Menu order', 'cherry-team' ),
 					),
 					'default' => 'date',
 					'name'    => __( 'Order by', 'cherry-team' ),
-					'desc'    => __( 'Order posts by', 'cherry-team' )
+					'desc'    => __( 'Order posts by', 'cherry-team' ),
 				),
 				'group' => array(
 					'type'     => 'select',
@@ -157,19 +159,19 @@ class Cherry_Team_shortcode {
 				'id' => array(
 					'default' => 0,
 					'name'    => __( 'Post ID\'s', 'cherry-team' ),
-					'desc'    => __( 'Enter comma separated ID\'s of the posts that you want to show', 'cherry-team' )
+					'desc'    => __( 'Enter comma separated ID\'s of the posts that you want to show', 'cherry-team' ),
 				),
 				'show_name' => array(
 					'type'    => 'bool',
 					'default' => 'yes',
 					'name' => __( 'Show name?', 'cherry-team' ),
-					'desc'    => __( 'Show name?', 'cherry-team' )
+					'desc'    => __( 'Show name?', 'cherry-team' ),
 				),
 				'show_photo' => array(
 					'type'    => 'bool',
 					'default' => 'yes',
 					'name' => __( 'Show photo?', 'cherry-team' ),
-					'desc'    => __( 'Show photo?', 'cherry-team' )
+					'desc'    => __( 'Show photo?', 'cherry-team' ),
 				),
 				'size' => array(
 					'type'    => 'select',
@@ -185,7 +187,7 @@ class Cherry_Team_shortcode {
 					'step'    => 1,
 					'default' => 20,
 					'name'    => __( 'Excerpt Length', 'cherry-team' ),
-					'desc'    => __( 'Excerpt length (if used in template)', 'cherry-team' )
+					'desc'    => __( 'Excerpt length (if used in template)', 'cherry-team' ),
 				),
 				'col' => array(
 					'type'    => 'responsive',
@@ -210,11 +212,11 @@ class Cherry_Team_shortcode {
 				'class' => array(
 					'default' => '',
 					'name'    => __( 'Class', 'cherry-team' ),
-					'desc'    => __( 'Extra CSS class', 'cherry-team' )
+					'desc'    => __( 'Extra CSS class', 'cherry-team' ),
 				),
 			),
 			'icon'     => 'users', // Custom icon (font-awesome).
-			'function' => array( $this, 'do_shortcode' ) // Name of shortcode function.
+			'function' => array( $this, 'do_shortcode' ), // Name of shortcode function.
 		);
 
 		return $shortcodes;
@@ -223,7 +225,9 @@ class Cherry_Team_shortcode {
 	/**
 	 * Add team specific macros buttons into caousel shortcode
 	 *
-	 * @param  array  $macros_buttons  default macros buttons
+	 * @since  1.0.0
+	 * @param  array $macros_buttons default macros buttons.
+	 * @return array
 	 */
 	public function extend_carousel_macros( $macros_buttons ) {
 
@@ -231,37 +235,37 @@ class Cherry_Team_shortcode {
 			'id'    => 'cherry_position',
 			'value' => __( 'Position (Team only)', 'cherry-team' ),
 			'open'  => '%%POSITION%%',
-			'close' => ''
+			'close' => '',
 		);
 		$macros_buttons['location'] = array(
 			'id'    => 'cherry_location',
 			'value' => __( 'Location (Team only)', 'cherry-team' ),
 			'open'  => '%%LOCATION%%',
-			'close' => ''
+			'close' => '',
 		);
 		$macros_buttons['phone'] = array(
 			'id'    => 'cherry_phone',
 			'value' => __( 'Telephone (Team only)', 'cherry-team' ),
 			'open'  => '%%PHONE%%',
-			'close' => ''
+			'close' => '',
 		);
 		$macros_buttons['email'] = array(
 			'id'    => 'cherry_email',
 			'value' => __( 'Email (Team only)', 'cherry-team' ),
 			'open'  => '%%EMAIL%%',
-			'close' => ''
+			'close' => '',
 		);
 		$macros_buttons['website'] = array(
 			'id'    => 'cherry_website',
 			'value' => __( 'Personal website (Team only)', 'cherry-team' ),
 			'open'  => '%%WEBSITE%%',
-			'close' => ''
+			'close' => '',
 		);
 		$macros_buttons['socials'] = array(
 			'id'    => 'cherry_socials',
 			'value' => __( 'Social (Team only)', 'cherry-team' ),
 			'open'  => '%%SOCIALS%%',
-			'close' => ''
+			'close' => '',
 		);
 
 		return $macros_buttons;
@@ -272,9 +276,10 @@ class Cherry_Team_shortcode {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param array $postdata  default data
-	 * @param array $post_id   processed post ID
-	 * @param array $atts      shortcode attributes
+	 * @param  array $postdata default data.
+	 * @param  array $post_id  processed post ID.
+	 * @param  array $atts     shortcode attributes.
+	 * @return array
 	 */
 	public function add_carousel_data( $postdata, $post_id, $atts ) {
 
@@ -294,7 +299,9 @@ class Cherry_Team_shortcode {
 	/**
 	 * Adds team template directory to shortcodes templater
 	 *
-	 * @param array  $target_dirs  existing target dirs
+	 * @since  1.0.0
+	 * @param  array $target_dirs existing target dirs.
+	 * @return array
 	 */
 	public function add_target_dir( $target_dirs ) {
 
@@ -322,67 +329,67 @@ class Cherry_Team_shortcode {
 				'id'    => 'cherry_photo',
 				'value' => __( 'Photo', 'cherry-team' ),
 				'open'  => '%%PHOTO%%',
-				'close' => ''
+				'close' => '',
 			),
 			'name' => array(
 				'id'    => 'cherry_name',
 				'value' => __( 'Name', 'cherry-team' ),
 				'open'  => '%%NAME%%',
-				'close' => ''
+				'close' => '',
 			),
 			'content' => array(
 				'id'    => 'cherry_content',
 				'value' => __( 'Person description', 'cherry-team' ),
 				'open'  => '%%CONTENT%%',
-				'close' => ''
+				'close' => '',
 			),
 			'excerpt' => array(
 				'id'    => 'cherry_excerpt',
 				'value' => __( 'Short description', 'cherry-team' ),
 				'open'  => '%%EXCERPT%%',
-				'close' => ''
+				'close' => '',
 			),
 			'position' => array(
 				'id'    => 'cherry_position',
 				'value' => __( 'Person Position', 'cherry-team' ),
 				'open'  => '%%POSITION%%',
-				'close' => ''
+				'close' => '',
 			),
 			'location' => array(
 				'id'    => 'cherry_location',
 				'value' => __( 'Person Location', 'cherry-team' ),
 				'open'  => '%%LOCATION%%',
-				'close' => ''
+				'close' => '',
 			),
 			'phone' => array(
 				'id'    => 'cherry_phone',
 				'value' => __( 'Telephone', 'cherry-team' ),
 				'open'  => '%%PHONE%%',
-				'close' => ''
+				'close' => '',
 			),
 			'email' => array(
 				'id'    => 'cherry_email',
 				'value' => __( 'Email', 'cherry-team' ),
 				'open'  => '%%EMAIL%%',
-				'close' => ''
+				'close' => '',
 			),
 			'website' => array(
 				'id'    => 'cherry_website',
 				'value' => __( 'Personal website', 'cherry-team' ),
 				'open'  => '%%WEBSITE%%',
-				'close' => ''
+				'close' => '',
 			),
 			'socials' => array(
 				'id'    => 'cherry_socials',
 				'value' => __( 'Person social links block', 'cherry-team' ),
 				'open'  => '%%SOCIALS%%',
-				'close' => ''
+				'close' => '',
 			),
 			'link' => array(
 				'id'    => 'cherry_link',
 				'value' => __( 'Profile page link', 'cherry-team' ),
 				'open'  => '%%LINK%%',
-				'close' => ''
+				'close' => '',
 			)
 		);
 
@@ -463,11 +470,10 @@ class Cherry_Team_shortcode {
 	 * @return object
 	 */
 	public static function get_instance() {
-
 		// If the single instance hasn't been set, set it now.
-		if ( null == self::$instance )
+		if ( null == self::$instance ) {
 			self::$instance = new self;
-
+		}
 		return self::$instance;
 	}
 

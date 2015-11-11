@@ -33,8 +33,9 @@ if ( have_posts() ) :
 						'container'    => false,
 						'size'         => 'thumbnail',
 						'pager'        => true,
-						'limit'        => Cherry_Team_Templater::$posts_per_archive_page
+						'limit'        => Cherry_Team_Templater::$posts_per_archive_page,
 					);
+
 					$data = new Cherry_Team_Data;
 					$data->the_team( $args );
 				?>
@@ -43,4 +44,4 @@ if ( have_posts() ) :
 
 	<?php endwhile;
 
-endif; ?>
+endif;

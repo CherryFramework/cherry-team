@@ -151,9 +151,10 @@ class Cherry_Team_Meta_Boxes {
 	/**
 	 * Prints the box content.
 	 *
-	 * @since 1.0.0
-	 * @param object $post    Current post object.
-	 * @param array  $metabox
+	 * @since  1.0.0
+	 * @param  object $post    Current post object.
+	 * @param  array  $metabox metabox attributes.
+	 * @return void
 	 */
 	public function callback_metabox( $post, $metabox ) {
 
@@ -191,8 +192,8 @@ class Cherry_Team_Meta_Boxes {
 		 * Fires after testimonial fields of metabox.
 		 *
 		 * @since 1.0.0
-		 * @param object $post                 Current post object.
-		 * @param array  $metabox
+		 * @param object $post                Current post object.
+		 * @param array  $metabox             metabox arguments.
 		 * @param string CHERRY_TEAM_POSTMETA Name for 'meta_key' value in the 'wp_postmeta' table.
 		 */
 		do_action( 'cherry_team_metabox_after', $post, $metabox, CHERRY_TEAM_POSTMETA );
@@ -211,7 +212,7 @@ class Cherry_Team_Meta_Boxes {
 	public function save_post( $post_id, $post ) {
 
 		// Verify the nonce.
-		if ( !isset( $_POST['cherry_team_options_meta_nonce'] ) || !wp_verify_nonce( $_POST['cherry_team_options_meta_nonce'], plugin_basename( __FILE__ ) ) )
+		if ( ! isset( $_POST['cherry_team_options_meta_nonce'] ) || ! wp_verify_nonce( $_POST['cherry_team_options_meta_nonce'], plugin_basename( __FILE__ ) ) )
 			return;
 
 		// If this is an autosave, our form has not been submitted, so we don't want to do anything.
@@ -223,7 +224,7 @@ class Cherry_Team_Meta_Boxes {
 		$post_type = get_post_type_object( $post->post_type );
 
 		// Check if the current user has permission to edit the post.
-		if ( !current_user_can( $post_type->cap->edit_post, $post_id ) )
+		if ( ! current_user_can( $post_type->cap->edit_post, $post_id ) )
 			return $post_id;
 
 		// Don't save if the post is only a revision.
@@ -238,7 +239,7 @@ class Cherry_Team_Meta_Boxes {
 			return;
 		}
 		// Check if socials have empty value.
-		if( !isset( $_POST[ CHERRY_TEAM_POSTMETA ]['socials'] ) ){
+		if( ! isset( $_POST[ CHERRY_TEAM_POSTMETA ]['socials'] ) ){
 			$_POST[ CHERRY_TEAM_POSTMETA ]['socials'] = array();
 		}
 
@@ -267,8 +268,8 @@ class Cherry_Team_Meta_Boxes {
 	 *
 	 * @since  1.0.0
 	 *
-	 * @param  [type] $input [description]
-	 * @return [type]        [description]
+	 * @param  array $input social items array.
+	 * @return array
 	 */
 	public function sanitize_socials( $input ) {
 
@@ -282,8 +283,8 @@ class Cherry_Team_Meta_Boxes {
 	 *
 	 * @since  1.0.0
 	 *
-	 * @param  string &$item array value
-	 * @param  string $key   array key
+	 * @param  string &$item array value.
+	 * @param  string $key   array key.
 	 */
 	public function sanitize_socials_item( &$item, $key ) {
 
@@ -306,12 +307,10 @@ class Cherry_Team_Meta_Boxes {
 	 * @return object
 	 */
 	public static function get_instance() {
-
 		// If the single instance hasn't been set, set it now.
 		if ( null == self::$instance ) {
 			self::$instance = new self;
 		}
-
 		return self::$instance;
 	}
 }

@@ -10,15 +10,20 @@
  * License:     GPL-3.0+
  * License URI: http://www.gnu.org/licenses/gpl-3.0.txt
  * Domain Path: /languages
+ *
+ * @package  Cherry Team
+ * @category Core
+ * @author   Cherry Team
+ * @license  GPL-2.0+
  */
 
 // If this file is called directly, abort.
-if ( !defined( 'WPINC' ) ) {
+if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
 // If class 'Cherry_Team' not exists.
-if ( !class_exists( 'Cherry_Team' ) ) {
+if ( ! class_exists( 'Cherry_Team' ) ) {
 
 	/**
 	 * Sets up and initializes the Cherry Team plugin.
@@ -369,11 +374,10 @@ if ( !class_exists( 'Cherry_Team' ) ) {
 		 * @return object
 		 */
 		public static function get_instance() {
-
 			// If the single instance hasn't been set, set it now.
-			if ( null == self::$instance )
+			if ( null == self::$instance ) {
 				self::$instance = new self;
-
+			}
 			return self::$instance;
 		}
 	}

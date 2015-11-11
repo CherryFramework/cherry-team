@@ -42,11 +42,12 @@ class Cherry_Team_Admin {
 	 * Loads custom meta boxes on the "Add New Testimonial" and "Edit Testimonial" screens.
 	 *
 	 * @since 1.0.0
+	 * @return void
 	 */
 	public function load_post_meta_boxes() {
 		$screen = get_current_screen();
 
-		if ( !empty( $screen->post_type ) && 'team' === $screen->post_type ) {
+		if ( ! empty( $screen->post_type ) && 'team' === $screen->post_type ) {
 			require_once( trailingslashit( CHERRY_TEAM_DIR ) . 'admin/includes/class-cherry-team-meta-boxes.php' );
 		}
 	}
@@ -59,7 +60,7 @@ class Cherry_Team_Admin {
 	public function load_edit() {
 		$screen = get_current_screen();
 
-		if ( !empty( $screen->post_type ) && 'team' === $screen->post_type ) {
+		if ( ! empty( $screen->post_type ) && 'team' === $screen->post_type ) {
 			add_action( 'admin_head', array( $this, 'print_styles' ) );
 		}
 	}
@@ -68,6 +69,7 @@ class Cherry_Team_Admin {
 	 * Style adjustments for the manage menu items screen.
 	 *
 	 * @since 1.0.0
+	 * @return void
 	 */
 	public function print_styles() { ?>
 		<style type="text/css">
@@ -84,7 +86,7 @@ class Cherry_Team_Admin {
 	 * Filters the columns on the "Team" screen.
 	 *
 	 * @since  1.0.0
-	 * @param  array $post_columns
+	 * @param  array $post_columns current post table columns.
 	 * @return array
 	 */
 	public function edit_team_columns( $post_columns ) {
@@ -107,8 +109,9 @@ class Cherry_Team_Admin {
 	 * Add output for custom columns on the "menu items" screen.
 	 *
 	 * @since  1.0.0
-	 * @param  string $column
-	 * @param  int    $post_id
+	 * @param  string $column  current post list categories.
+	 * @param  int    $post_id current post ID.
+	 * @return void
 	 */
 	public function manage_team_columns( $column, $post_id ) {
 
@@ -118,7 +121,7 @@ class Cherry_Team_Admin {
 
 				$post_meta = get_post_meta( $post_id, CHERRY_TEAM_POSTMETA, true );
 
-				if ( !empty( $post_meta ) ) {
+				if ( ! empty( $post_meta ) ) {
 					echo ( isset( $post_meta['position'] ) && !empty( $post_meta['position'] ) ) ? $post_meta['position'] : '&mdash;';
 				}
 
@@ -150,12 +153,10 @@ class Cherry_Team_Admin {
 	 * @return object
 	 */
 	public static function get_instance() {
-
 		// If the single instance hasn't been set, set it now.
 		if ( null == self::$instance ) {
 			self::$instance = new self;
 		}
-
 		return self::$instance;
 	}
 }

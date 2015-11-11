@@ -83,13 +83,14 @@ class Cherry_Team_Templater {
 		);
 	}
 
+	/**
+	 * Setup posts number per archive page
+	 *
+	 * @since  1.0.0
+	 * @param  object $query main query object
+	 * @return void
+	 */
 	public function set_posts_per_archive_page( $query ) {
-		// if ( ! is_admin()
-		// 	&& ( $query->is_post_type_archive( CHERRY_TEAM_NAME ) || $query->is_tax( 'group' ) )
-		// 	&& $query->is_main_query() )
-		// {
-		// 		$query->set( 'posts_per_page', self::$posts_per_archive_page );
-		// }
 
 		if ( ! is_admin()
 			&& $query->is_main_query()
@@ -124,7 +125,7 @@ class Cherry_Team_Templater {
 		}
 
 		// Since we've updated the cache, we need to delete the old cache.
-		wp_cache_delete( $cache_key , 'themes');
+		wp_cache_delete( $cache_key , 'themes' );
 
 		// Now add our template to the list of templates by merging our templates
 		// with the existing templates array from the cache.
@@ -139,7 +140,8 @@ class Cherry_Team_Templater {
 	/**
 	 * Checks if the template is assigned to the page.
 	 *
-	 * @since 1.0.0
+	 * @since  1.0.0
+	 * @param  string $template
 	 */
 	public function view_template( $template ) {
 
@@ -198,11 +200,10 @@ class Cherry_Team_Templater {
 	 * @return object
 	 */
 	public static function get_instance() {
-
 		// If the single instance hasn't been set, set it now.
-		if ( null == self::$instance )
+		if ( null == self::$instance ) {
 			self::$instance = new self;
-
+		}
 		return self::$instance;
 	}
 }

@@ -73,6 +73,7 @@ class Cherry_Team_Data {
 	 * @return string
 	 */
 	public function the_team( $args = '' ) {
+
 		/**
 		 * Filter the array of default arguments.
 		 *
@@ -102,7 +103,7 @@ class Cherry_Team_Data {
 			'pager'          => false,
 			'template'       => 'default.tmpl',
 			'item_class'     => 'team-item',
-			'container'      => '<div class="team-listing row">%s</div>'
+			'container'      => '<div class="team-listing row">%s</div>',
 		), $args );
 
 		$args = wp_parse_args( $args, $defaults );
@@ -164,7 +165,7 @@ class Cherry_Team_Data {
 		// Open wrapper.
 		$output .= sprintf( '<div class="%s">', $css_class );
 
-		if ( !empty( $args['title'] ) ) {
+		if ( ! empty( $args['title'] ) ) {
 			$output .= $args['before_title'] . $args['title'] . $args['after_title'];
 		}
 
@@ -257,7 +258,7 @@ class Cherry_Team_Data {
 					array(
 						'taxonomy' => 'group',
 						'field'    => 'slug',
-						'terms'    => $group
+						'terms'    => $group,
 					)
 				);
 			}
@@ -296,8 +297,23 @@ class Cherry_Team_Data {
 
 		endif;
 
+		$orderby_whitelist = array(
+			'none',
+			'ID',
+			'author',
+			'title',
+			'date',
+			'modified',
+			'parent',
+			'rand',
+			'comment_count',
+			'menu_order',
+			'meta_value',
+			'meta_value_num',
+		);
+
 		// Whitelist checks.
-		if ( !in_array( $this->query_args['orderby'], array( 'none', 'ID', 'author', 'title', 'date', 'modified', 'parent', 'rand', 'comment_count', 'menu_order', 'meta_value', 'meta_value_num' ) ) ) {
+		if ( ! in_array( $this->query_args['orderby'], $orderby_whitelist ) ) {
 			$this->query_args['orderby'] = 'date';
 		}
 		if ( ! in_array( strtoupper( $this->query_args['order'] ), array( 'ASC', 'DESC' ) ) ) {
@@ -367,7 +383,7 @@ class Cherry_Team_Data {
 	 */
 	public function replace_callback( $matches ) {
 
-		if ( !is_array( $matches ) ) {
+		if ( ! is_array( $matches ) ) {
 			return '';
 		}
 
@@ -439,7 +455,7 @@ class Cherry_Team_Data {
 			$post_id   = $post->ID;
 			$link      = get_permalink( $post_id );
 
-			$this->replace_args['link']     = $link;
+			$this->replace_args['link'] = $link;
 
 
 			$tpl = preg_replace_callback( $macros, array( $this, 'replace_callback' ), $tpl );
@@ -448,11 +464,12 @@ class Cherry_Team_Data {
 			$item_classes[] = ( $count % 2 ) ? 'odd' : 'even';
 
 			foreach ( array( 'col_xs', 'col_sm', 'col_md', 'col_lg' ) as $col ) {
+
 				if ( ! $args[$col] || 'none' == $args[$col] ) {
 					continue;
 				}
 
-				$cols = absint( $args[$col] );
+				$cols = absint( $args[ $col ] );
 
 				if ( 12 < $cols ) {
 					$cols = 12;
@@ -462,7 +479,7 @@ class Cherry_Team_Data {
 					$cols = 1;
 				}
 
-				$item_classes[] = str_replace( '_', '-', $col ) . '-' . absint( $args[$col] );
+				$item_classes[] = str_replace( '_', '-', $col ) . '-' . absint( $args[ $col ] );
 				$item_classes[] = ( ( $count - 1 ) % floor( 12 / $cols ) ) ? '' : 'clear-' . str_replace( '_', '-', $col );
 			}
 
@@ -499,7 +516,8 @@ class Cherry_Team_Data {
 	 * Prepare template data to replace
 	 *
 	 * @since  1.0.0
-	 * @param  array  $atts output attributes
+	 * @param  array $atts output attributes.
+	 * @return array
 	 */
 	function setup_template_data( $atts ) {
 
@@ -518,7 +536,7 @@ class Cherry_Team_Data {
 			'email'    => array( $callbacks, 'get_email' ),
 			'website'  => array( $callbacks, 'get_website' ),
 			'socials'  => array( $callbacks, 'get_socials' ),
-			'link'     => array( $callbacks, 'get_link' )
+			'link'     => array( $callbacks, 'get_link' ),
 		);
 
 		$this->post_data = apply_filters( 'cherry_team_data_callbacks', $data, $atts );
@@ -546,7 +564,7 @@ class Cherry_Team_Data {
 		$data = array(
 			'@context' => 'http://schema.org/',
 			'@type'    => 'Person',
-			'name'     => get_the_title( $post_id )
+			'name'     => get_the_title( $post_id ),
 		);
 
 		$image = $this->get_image_url( $post_id, 150 );
@@ -562,7 +580,7 @@ class Cherry_Team_Data {
 			'location'  => 'workLocation',
 			'telephone' => 'telephone',
 			'website'   => 'url',
-			'email'     => 'email'
+			'email'     => 'email',
 		);
 
 		foreach ( $relations as $meta => $datakey ) {
@@ -630,21 +648,21 @@ class Cherry_Team_Data {
 	 */
 	public static function get_contents( $template ) {
 
-		if ( !function_exists( 'WP_Filesystem' ) ) {
+		if ( ! function_exists( 'WP_Filesystem' ) ) {
 			include_once( ABSPATH . '/wp-admin/includes/file.php' );
 		}
 
 		WP_Filesystem();
 		global $wp_filesystem;
 
-		if ( !$wp_filesystem->exists( $template ) ) { // Check for existence.
+		if ( ! $wp_filesystem->exists( $template ) ) { // Check for existence.
 			return false;
 		}
 
 		// Read the file.
 		$content = $wp_filesystem->get_contents( $template );
 
-		if ( !$content ) {
+		if ( ! $content ) {
 			return new WP_Error( 'reading_error', 'Error when reading file' ); // Return error object.
 		}
 
@@ -656,8 +674,9 @@ class Cherry_Team_Data {
 	 *
 	 * @since  1.0.0
 	 *
-	 * @param  string $template  template name
-	 * @param  string $shortcode shortcode name
+	 * @param  string $template  template name.
+	 * @param  string $shortcode shortcode name.
+	 * @return string
 	 */
 	public function get_template_by_name( $template, $shortcode ) {
 
@@ -691,7 +710,7 @@ class Cherry_Team_Data {
 	 * Get CSS class name for shortcode by template name
 	 *
 	 * @since  1.0.5
-	 * @param  string $template template name
+	 * @param  string $template template name.
 	 * @return string|bool false
 	 */
 	public function get_template_class( $template ) {
@@ -714,11 +733,10 @@ class Cherry_Team_Data {
 	 * @return object
 	 */
 	public static function get_instance() {
-
 		// If the single instance hasn't been set, set it now.
-		if ( null == self::$instance )
+		if ( null == self::$instance ) {
 			self::$instance = new self;
-
+		}
 		return self::$instance;
 	}
 

@@ -32,9 +32,9 @@ class Cherry_Team_Widget extends WP_Widget {
 	 */
 	private $data;
 
-	/*--------------------------------------------------*/
-	/* Constructor
-	/*--------------------------------------------------*/
+	/**
+	 * Constructor for the class
+	 */
 	public function __construct() {
 
 		parent::__construct(
@@ -195,6 +195,11 @@ class Cherry_Team_Widget extends WP_Widget {
 		do_action( $this->widget_slug . '_after' );
 	}
 
+	/**
+	 * Clear widget cahce.
+	 *
+	 * @return  void
+	 */
 	public function flush_widget_cache() {
 		wp_cache_delete( $this->get_widget_slug(), 'widget' );
 	}
