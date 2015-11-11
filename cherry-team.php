@@ -277,11 +277,11 @@ if ( ! class_exists( 'Cherry_Team' ) ) {
 
 			$meta = get_post_meta( $post_id, CHERRY_TEAM_POSTMETA, true );
 
-			if ( ! $meta || ! is_array( $meta ) || ! isset( $meta[$name] ) ) {
+			if ( ! $meta || ! is_array( $meta ) || ! isset( $meta[ $name ] ) ) {
 				return $default;
 			}
 
-			return $meta[$name];
+			return $meta[ $name ];
 
 		}
 
