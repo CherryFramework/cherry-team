@@ -15,10 +15,10 @@
 			&:before {
 				display: inline-block;
 				font-family: FontAwesome;
-				font-size: 1.1em;
-				vertical-align: middle;
-				margin: 0 5px 0 0;
-				min-width: 20px;
+				font-size: 1em;
+				margin: 0 0.5em 0 0;
+				min-width: 1em;
+				vertical-align: top;
 			}
 			&.position {
 				&:before {
@@ -77,6 +77,7 @@
 	}
 	&_item {
 		text-align: center;
+		padding-bottom: 30px;
 		&.clear-col-lg {
 			@media ( min-width: 1200px ) {
 				clear: both;

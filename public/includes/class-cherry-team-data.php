@@ -145,18 +145,24 @@ class Cherry_Team_Data {
 			return;
 		}
 
-		$css_class = '';
+		$css_classes = array();
 
-		if ( !empty( $args['wrap_class'] ) ) {
-			$css_class .= esc_attr( $args['wrap_class'] ) . ' ';
+		if ( ! empty( $args['wrap_class'] ) ) {
+			$css_classes[] = esc_attr( $args['wrap_class'] );
 		}
 
-		if ( !empty( $args['class'] ) ) {
-			$css_class .= esc_attr( $args['class'] );
+		if ( ! empty( $args['template'] ) ) {
+			$css_classes[] = $this->get_template_class( $args['template'] );
 		}
+
+		if ( ! empty( $args['class'] ) ) {
+			$css_classes[] = esc_attr( $args['class'] );
+		}
+
+		$css_class = implode( ' ', $css_classes );
 
 		// Open wrapper.
-		$output .= sprintf( '<div class="%s">', trim( $css_class ) );
+		$output .= sprintf( '<div class="%s">', $css_class );
 
 		if ( !empty( $args['title'] ) ) {
 			$output .= $args['before_title'] . $args['title'] . $args['after_title'];
@@ -445,8 +451,19 @@ class Cherry_Team_Data {
 				if ( ! $args[$col] || 'none' == $args[$col] ) {
 					continue;
 				}
+
+				$cols = absint( $args[$col] );
+
+				if ( 12 < $cols ) {
+					$cols = 12;
+				}
+
+				if ( 0 === $cols ) {
+					$cols = 1;
+				}
+
 				$item_classes[] = str_replace( '_', '-', $col ) . '-' . absint( $args[$col] );
-				$item_classes[] = ( ( $count - 1 ) % floor( 12 / absint( $args[$col] ) ) ) ? '' : 'clear-' . str_replace( '_', '-', $col );
+				$item_classes[] = ( ( $count - 1 ) % floor( 12 / $cols ) ) ? '' : 'clear-' . str_replace( '_', '-', $col );
 			}
 
 			$count++;
@@ -570,11 +587,38 @@ class Cherry_Team_Data {
 		}
 
 		if ( is_array( $team_meta['socials'] ) && ! empty( $team_meta['socials'] ) ) {
-			$urls = wp_list_pluck( $team_meta['socials'], 'external-link' );
+			$urls           = $this->get_social_urls( $team_meta['socials'] );
 			$data['sameAs'] = $urls;
 		}
 
 		printf( $result, json_encode( $data ) );
+
+	}
+
+	/**
+	 * Callback function for social array walker
+	 *
+	 * @since  1.0.5
+	 * @param  array $socials socials array.
+	 * @return void
+	 */
+	public function get_social_urls( $socials ) {
+
+		$urls = array();
+
+		if ( ! is_array( $socials ) ) {
+			return $urls;
+		}
+
+		foreach ( $socials as $key => $data ) {
+			if ( ! isset( $data['external-link'] ) ) {
+				continue;
+			}
+
+			$urls[] = esc_url( $data['external-link'] );
+		}
+
+		return $urls;
 
 	}
 
@@ -636,11 +680,31 @@ class Cherry_Team_Data {
 			$file = $default;
 		}
 
-		if ( !empty( $file ) ) {
+		if ( ! empty( $file ) ) {
 			$content = self::get_contents( $file );
 		}
 
 		return $content;
+	}
+
+	/**
+	 * Get CSS class name for shortcode by template name
+	 *
+	 * @since  1.0.5
+	 * @param  string $template template name
+	 * @return string|bool false
+	 */
+	public function get_template_class( $template ) {
+
+		if ( ! $template ) {
+			return false;
+		}
+
+		// Use the same filter for all cherry-related shortcodes
+		$prefix = apply_filters( 'cherry_shortcodes_template_class_prefix', 'template' );
+		$class  = sprintf( '%s-%s', esc_attr( $prefix ), esc_attr( str_replace( '.tmpl', '', $template ) ) );
+
+		return $class;
 	}
 
 	/**
