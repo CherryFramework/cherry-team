@@ -131,7 +131,7 @@ class Cherry_Team_Data {
 		global $wp_query;
 
 		$this->temp_query = $wp_query;
-		$wp_query = NULL;
+		$wp_query = null;
 		$wp_query = $query;
 
 		// Fix boolean.
@@ -182,7 +182,7 @@ class Cherry_Team_Data {
 			$output .= get_the_posts_pagination();
 		}
 
-		$wp_query = NULL;
+		$wp_query = null;
 		$wp_query = $this->temp_query;
 
 		/**
@@ -198,7 +198,7 @@ class Cherry_Team_Data {
 		wp_reset_query();
 		wp_reset_postdata();
 
-		if ( $args['echo'] != true ) {
+		if ( true != $args['echo'] ) {
 			return $output;
 		}
 
@@ -259,7 +259,7 @@ class Cherry_Team_Data {
 						'taxonomy' => 'group',
 						'field'    => 'slug',
 						'terms'    => $group,
-					)
+					),
 				);
 			}
 		} else {
@@ -268,10 +268,10 @@ class Cherry_Team_Data {
 
 		if ( isset( $args['pager'] ) && ( 'true' == $args['pager'] ) ) :
 
-			if ( get_query_var('paged') ) {
-				$this->query_args['paged'] = get_query_var('paged');
-			} elseif ( get_query_var('page') ) {
-				$this->query_args['paged'] = get_query_var('page');
+			if ( get_query_var( 'paged' ) ) {
+				$this->query_args['paged'] = get_query_var( 'paged' );
+			} elseif ( get_query_var( 'page' ) ) {
+				$this->query_args['paged'] = get_query_var( 'page' );
 			} else {
 				$this->query_args['paged'] = 1;
 			}
@@ -360,7 +360,7 @@ class Cherry_Team_Data {
 		// If not a string or an array, and not an integer, default to 150x9999.
 		if ( 0 < $size ) {
 			$size = array( $size, $size );
-		} elseif ( ! is_string( $size ) && !is_array( $size ) ) {
+		} elseif ( ! is_string( $size ) && ! is_array( $size ) ) {
 			$size = array( 50, 50 );
 		}
 
@@ -379,7 +379,8 @@ class Cherry_Team_Data {
 	 *
 	 * @since  1.0.0
 	 *
-	 * @param  array $matches found macros
+	 * @param  array $matches found macros.
+	 * @return mixed
 	 */
 	public function replace_callback( $matches ) {
 
@@ -394,11 +395,11 @@ class Cherry_Team_Data {
 		$key = strtolower( $matches[1] );
 
 		// if key not found in data -return nothing
-		if ( ! isset( $this->post_data[$key] ) ) {
+		if ( ! isset( $this->post_data[ $key ] ) ) {
 			return '';
 		}
 
-		$callback = $this->post_data[$key];
+		$callback = $this->post_data[ $key ];
 
 		if ( ! is_callable( $callback ) ) {
 			return;
@@ -417,8 +418,8 @@ class Cherry_Team_Data {
 	 * Get team items.
 	 *
 	 * @since  1.0.0
-	 * @param  array         $query      WP_query object.
-	 * @param  array         $args       The array of arguments.
+	 * @param  array $query WP_query object.
+	 * @param  array $args  The array of arguments.
 	 * @return string
 	 */
 	public function get_team_loop( $query, $args ) {
@@ -457,7 +458,6 @@ class Cherry_Team_Data {
 
 			$this->replace_args['link'] = $link;
 
-
 			$tpl = preg_replace_callback( $macros, array( $this, 'replace_callback' ), $tpl );
 
 			$item_classes   = array( $args['item_class'], 'item-' . $count, 'clearfix' );
@@ -465,7 +465,7 @@ class Cherry_Team_Data {
 
 			foreach ( array( 'col_xs', 'col_sm', 'col_md', 'col_lg' ) as $col ) {
 
-				if ( ! $args[$col] || 'none' == $args[$col] ) {
+				if ( ! $args[ $col ] || 'none' == $args[ $col ] ) {
 					continue;
 				}
 
@@ -589,11 +589,11 @@ class Cherry_Team_Data {
 				continue;
 			}
 
-			if ( empty( $team_meta[$meta] ) ) {
+			if ( empty( $team_meta[ $meta ] ) ) {
 				continue;
 			}
 
-			$data[$datakey] = $team_meta[$meta];
+			$data[ $datakey ] = $team_meta[ $meta ];
 		}
 
 		if ( empty( $data['url'] )
@@ -618,7 +618,7 @@ class Cherry_Team_Data {
 	 *
 	 * @since  1.0.5
 	 * @param  array $socials socials array.
-	 * @return void
+	 * @return array
 	 */
 	public function get_social_urls( $socials ) {
 
@@ -739,5 +739,4 @@ class Cherry_Team_Data {
 		}
 		return self::$instance;
 	}
-
 }

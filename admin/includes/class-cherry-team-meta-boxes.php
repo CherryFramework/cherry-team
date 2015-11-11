@@ -9,6 +9,9 @@
  * @copyright 2015 Cherry Team
  */
 
+/**
+ * Admin meta boxes management class
+ */
 class Cherry_Team_Meta_Boxes {
 
 	/**
@@ -63,7 +66,7 @@ class Cherry_Team_Meta_Boxes {
 				'external-link'	=> '#',
 				'font-class'	=> 'fa fa-linkedin',
 				'link-label'	=> __( 'Find %s at LinkedIn', 'cherry-team' ),
-			)
+			),
 		) );
 
 		/**
@@ -83,7 +86,7 @@ class Cherry_Team_Meta_Boxes {
 					'position' => array(
 						'id'			=> 'position',
 						'type'			=> 'text',
-						'title'			=> __('Position:', 'cherry-team'),
+						'title'			=> __( 'Position:', 'cherry-team' ),
 						'label'			=> '',
 						'description'	=> '',
 						'value'			=> '',
@@ -91,7 +94,7 @@ class Cherry_Team_Meta_Boxes {
 					'location' => array(
 						'id'			=> 'location',
 						'type'			=> 'text',
-						'title'			=> __('Location:', 'cherry-team'),
+						'title'			=> __( 'Location:', 'cherry-team' ),
 						'label'			=> '',
 						'description'	=> '',
 						'value'			=> '',
@@ -99,7 +102,7 @@ class Cherry_Team_Meta_Boxes {
 					'telephone' => array(
 						'id'			=> 'telephone',
 						'type'			=> 'text',
-						'title'			=> __('Telephone:', 'cherry-team'),
+						'title'			=> __( 'Telephone:', 'cherry-team' ),
 						'label'			=> '',
 						'description'	=> '',
 						'value'			=> '',
@@ -107,15 +110,15 @@ class Cherry_Team_Meta_Boxes {
 					'email' => array(
 						'id'			=> 'email',
 						'type'			=> 'text',
-						'title'			=> __('Email:', 'cherry-team'),
+						'title'			=> __( 'Email:', 'cherry-team' ),
 						'label'			=> '',
 						'description'	=> '',
-						'value'			=> ''
+						'value'			=> '',
 					),
 					'website' => array(
 						'id'			=> 'website',
 						'type'			=> 'text',
-						'title'			=> __('Personal website:', 'cherry-team'),
+						'title'			=> __( 'Personal website:', 'cherry-team' ),
 						'label'			=> '',
 						'description'	=> '',
 						'value'			=> '',
@@ -123,11 +126,11 @@ class Cherry_Team_Meta_Boxes {
 					'socials' => array(
 						'id'			=> 'socials',
 						'type'			=> 'repeater',
-						'title'			=> __('Socials:', 'cherry-team'),
+						'title'			=> __( 'Socials:', 'cherry-team' ),
 						'label'			=> '',
 						'description'	=> '',
-						'value'			=> $socials
-					)
+						'value'			=> $socials,
+					),
 				)
 			)
 		);
@@ -172,15 +175,16 @@ class Cherry_Team_Meta_Boxes {
 			array(
 				'name_prefix' => CHERRY_TEAM_POSTMETA,
 				'pattern'     => 'inline',
-				'class'       => array( 'section' => 'single-section' )
+				'class'       => array( 'section' => 'single-section' ),
 			)
 		);
 
 		foreach ( $metabox['args'] as $field ) {
 
 			// Check if set the 'id' value for custom field. If not - don't add field.
-			if ( ! isset( $field['id'] ) )
+			if ( ! isset( $field['id'] ) ) {
 				continue;
+			}
 
 			$field['value'] = Cherry_Team::get_meta( $post->ID, $field['id'], $field['value'] );
 
@@ -206,14 +210,15 @@ class Cherry_Team_Meta_Boxes {
 	 * Save the meta when the post is saved.
 	 *
 	 * @since 1.0.0
-	 * @param int    $post_id
-	 * @param object $post
+	 * @param int    $post_id current post ID.
+	 * @param object $post    current post object.
 	 */
 	public function save_post( $post_id, $post ) {
 
 		// Verify the nonce.
-		if ( ! isset( $_POST['cherry_team_options_meta_nonce'] ) || ! wp_verify_nonce( $_POST['cherry_team_options_meta_nonce'], plugin_basename( __FILE__ ) ) )
+		if ( ! isset( $_POST['cherry_team_options_meta_nonce'] ) || ! wp_verify_nonce( $_POST['cherry_team_options_meta_nonce'], plugin_basename( __FILE__ ) ) ) {
 			return;
+		}
 
 		// If this is an autosave, our form has not been submitted, so we don't want to do anything.
 		if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
@@ -224,12 +229,14 @@ class Cherry_Team_Meta_Boxes {
 		$post_type = get_post_type_object( $post->post_type );
 
 		// Check if the current user has permission to edit the post.
-		if ( ! current_user_can( $post_type->cap->edit_post, $post_id ) )
+		if ( ! current_user_can( $post_type->cap->edit_post, $post_id ) ) {
 			return $post_id;
+		}
 
 		// Don't save if the post is only a revision.
-		if ( 'revision' == $post->post_type )
+		if ( 'revision' == $post->post_type ) {
 			return;
+		}
 
 		// Array of new post meta value.
 		$new_meta_value = array();
@@ -239,7 +246,7 @@ class Cherry_Team_Meta_Boxes {
 			return;
 		}
 		// Check if socials have empty value.
-		if( ! isset( $_POST[ CHERRY_TEAM_POSTMETA ]['socials'] ) ){
+		if ( ! isset( $_POST[ CHERRY_TEAM_POSTMETA ]['socials'] ) ) {
 			$_POST[ CHERRY_TEAM_POSTMETA ]['socials'] = array();
 		}
 
@@ -283,8 +290,8 @@ class Cherry_Team_Meta_Boxes {
 	 *
 	 * @since  1.0.0
 	 *
-	 * @param  string &$item array value.
-	 * @param  string $key   array key.
+	 * @param string $item array value.
+	 * @param string $key  array key.
 	 */
 	public function sanitize_socials_item( &$item, $key ) {
 

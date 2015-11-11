@@ -77,7 +77,7 @@ class Cherry_Team_Registration {
 			'rewrite'         => array(
 				'slug'       => 'team-view',
 				'with_front' => false,
-				'feeds'      => true
+				'feeds'      => true,
 			),
 			'query_var'       => true,
 			'menu_position'   => null,

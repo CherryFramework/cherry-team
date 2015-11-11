@@ -9,6 +9,9 @@
  * @copyright 2014 Cherry Team
  */
 
+/**
+ * Class contains admin-related functionality
+ */
 class Cherry_Team_Admin {
 
 	/**
@@ -34,7 +37,7 @@ class Cherry_Team_Admin {
 		add_action( 'load-edit.php', array( $this, 'load_edit' ) );
 
 		// Modify the columns on the "Testimonials" screen.
-		add_filter( 'manage_edit-team_columns',        array( $this, 'edit_team_columns'   ) );
+		add_filter( 'manage_edit-team_columns',        array( $this, 'edit_team_columns' ) );
 		add_action( 'manage_team_posts_custom_column', array( $this, 'manage_team_columns' ), 10, 2 );
 	}
 
@@ -71,7 +74,8 @@ class Cherry_Team_Admin {
 	 * @since 1.0.0
 	 * @return void
 	 */
-	public function print_styles() { ?>
+	public function print_styles() {
+		?>
 		<style type="text/css">
 		.edit-php .wp-list-table td.thumbnail.column-thumbnail,
 		.edit-php .wp-list-table th.manage-column.column-thumbnail,
@@ -80,7 +84,8 @@ class Cherry_Team_Admin {
 			text-align: center;
 		}
 		</style>
-	<?php }
+		<?php
+	}
 
 	/**
 	 * Filters the columns on the "Team" screen.
@@ -91,7 +96,7 @@ class Cherry_Team_Admin {
 	 */
 	public function edit_team_columns( $post_columns ) {
 		unset(
-			$post_columns[ 'taxonomy-group' ],
+			$post_columns['taxonomy-group'],
 			$post_columns['date']
 		);
 
@@ -115,14 +120,14 @@ class Cherry_Team_Admin {
 	 */
 	public function manage_team_columns( $column, $post_id ) {
 
-		switch( $column ) {
+		switch ( $column ) {
 
 			case 'position' :
 
 				$post_meta = get_post_meta( $post_id, CHERRY_TEAM_POSTMETA, true );
 
 				if ( ! empty( $post_meta ) ) {
-					echo ( isset( $post_meta['position'] ) && !empty( $post_meta['position'] ) ) ? $post_meta['position'] : '&mdash;';
+					echo ( isset( $post_meta['position'] ) && ! empty( $post_meta['position'] ) ) ? $post_meta['position'] : '&mdash;';
 				}
 
 				break;
@@ -131,7 +136,7 @@ class Cherry_Team_Admin {
 
 				$thumb = get_the_post_thumbnail( $post_id, array( 50, 50 ) );
 
-				echo !empty( $thumb ) ? $thumb : '&mdash;';
+				echo ! empty( $thumb ) ? $thumb : '&mdash;';
 
 				break;
 

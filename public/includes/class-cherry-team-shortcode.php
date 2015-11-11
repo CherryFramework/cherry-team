@@ -85,8 +85,8 @@ class Cherry_Team_shortcode {
 	 * Filter to modify original shortcodes data and add [$this->name] shortcode.
 	 *
 	 * @since  1.0.0
-	 * @param  array   $shortcodes Original plugin shortcodes.
-	 * @return array               Modified array.
+	 * @param  array $shortcodes Original plugin shortcodes.
+	 * @return array             Modified array.
 	 */
 	public function shortcodes( $shortcodes ) {
 
@@ -313,10 +313,11 @@ class Cherry_Team_shortcode {
 	/**
 	 * Add team shortcode macros buttons to templater
 	 *
-	 * @since 1.0.0
+	 * @since  1.0.0
 	 *
-	 * @param array  $macros    current buttons array
-	 * @param string $shortcode shortcode name
+	 * @param  array  $macros_buttons current buttons array.
+	 * @param  string $shortcode      shortcode name.
+	 * @return array
 	 */
 	public function add_macros_buttons( $macros_buttons, $shortcode ) {
 
@@ -390,7 +391,7 @@ class Cherry_Team_shortcode {
 				'value' => __( 'Profile page link', 'cherry-team' ),
 				'open'  => '%%LINK%%',
 				'close' => '',
-			)
+			),
 		);
 
 		return $macros_buttons;
@@ -476,7 +477,6 @@ class Cherry_Team_shortcode {
 		}
 		return self::$instance;
 	}
-
 }
 
 Cherry_Team_shortcode::get_instance();

@@ -4,8 +4,11 @@
  *
  * The template for displaying CPT Team.
  *
- * @package Cherry_Team
- * @since   1.0.0
+ * @package   Cherry_Team
+ * @author    Cherry Team
+ * @license   GPL-2.0+
+ * @link      http://www.cherryframework.com/
+ * @copyright 2015 Cherry Team
  */
 
 if ( have_posts() ) :
@@ -14,7 +17,11 @@ if ( have_posts() ) :
 
 			the_post(); ?>
 
-			<article <?php if ( function_exists( 'cherry_attr' ) ) cherry_attr( 'post' ); ?>>
+			<article <?php
+				if ( function_exists( 'cherry_attr' ) ) {
+					cherry_attr( 'post' );
+				}
+			?> >
 
 				<?php
 

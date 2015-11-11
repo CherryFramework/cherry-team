@@ -87,7 +87,7 @@ class Cherry_Team_Templater {
 	 * Setup posts number per archive page
 	 *
 	 * @since  1.0.0
-	 * @param  object $query main query object
+	 * @param  object $query main query object.
 	 * @return void
 	 */
 	public function set_posts_per_archive_page( $query ) {
@@ -96,7 +96,7 @@ class Cherry_Team_Templater {
 			&& $query->is_main_query()
 			&& (
 				$query->is_post_type_archive( CHERRY_TEAM_NAME )
-				|| ( is_tax() && !empty( $query->queried_object->taxonomy ) && ( 'group' === $query->queried_object->taxonomy ) )
+				|| ( is_tax() && ! empty( $query->queried_object->taxonomy ) && ( 'group' === $query->queried_object->taxonomy ) )
 				)
 			) {
 
@@ -141,7 +141,8 @@ class Cherry_Team_Templater {
 	 * Checks if the template is assigned to the page.
 	 *
 	 * @since  1.0.0
-	 * @param  string $template
+	 * @param  string $template.
+	 * @return string
 	 */
 	public function view_template( $template ) {
 
@@ -155,7 +156,6 @@ class Cherry_Team_Templater {
 			if ( file_exists( $file ) ) {
 				return $file;
 			}
-
 		}
 
 		if ( ! is_page( $post ) ) {
@@ -164,7 +164,7 @@ class Cherry_Team_Templater {
 
 		$page_template_meta = get_post_meta( $post->ID, '_wp_page_template', true );
 
-		if ( !isset( $this->templates[ $page_template_meta ] ) ) {
+		if ( ! isset( $this->templates[ $page_template_meta ] ) ) {
 			return $template;
 		}
 

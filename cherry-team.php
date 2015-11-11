@@ -66,7 +66,7 @@ if ( ! class_exists( 'Cherry_Team' ) ) {
 			add_filter( 'cherry_get_single_post_layout', array( $this, 'get_single_option' ),  11, 2 );
 
 			// Register activation and deactivation hook.
-			register_activation_hook( __FILE__, array( __CLASS__, 'activation'     ) );
+			register_activation_hook( __FILE__, array( __CLASS__, 'activation' ) );
 			register_deactivation_hook( __FILE__, array( __CLASS__, 'deactivation' ) );
 		}
 
@@ -157,7 +157,7 @@ if ( ! class_exists( 'Cherry_Team' ) ) {
 				$Cherry_Plugin_Update -> init( array(
 						'version'			=> CHERRY_TEAM_VERSION,
 						'slug'				=> CHERRY_TEAM_SLUG,
-						'repository_name'	=> CHERRY_TEAM_SLUG
+						'repository_name'	=> CHERRY_TEAM_SLUG,
 				));
 			}
 		}
@@ -267,9 +267,10 @@ if ( ! class_exists( 'Cherry_Team' ) ) {
 		 *
 		 * @since  1.0.0
 		 *
-		 * @param int     $$post_id post ID to get meta for
-		 * @param string  $name     meta name to get
-		 * @param mixed   $default  default meta value
+		 * @param  int    $post_id post ID to get meta for.
+		 * @param  string $name    meta name to get.
+		 * @param  mixed  $default default meta value.
+		 * @return mixed
 		 */
 		public static function get_meta( $post_id = null, $name, $default = false ) {
 
@@ -288,10 +289,12 @@ if ( ! class_exists( 'Cherry_Team' ) ) {
 		/**
 		 * Adds a option in `Grid -> Layouts` subsection.
 		 *
-		 * @since 1.0.0
-		 * @param array $sections
+		 * @since  1.0.0
+		 * @param  array $layouts_options current options array.
+		 * @return array
 		 */
 		public function add_cherry_options( $layouts_options ) {
+
 			$layouts_options['single-team-layout'] = array(
 				'type'        => 'radio',
 				'title'       => __( 'Team posts', 'cherry-team' ),
@@ -326,7 +329,7 @@ if ( ! class_exists( 'Cherry_Team' ) ) {
 						'label'   => __( 'No sidebar', 'cherry-team' ),
 						'img_src' => get_template_directory_uri() . '/lib/admin/assets/images/svg/page-layout-fullwidth.svg',
 					),
-				)
+				),
 			);
 
 			return $layouts_options;

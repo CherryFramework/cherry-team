@@ -43,7 +43,7 @@ class Cherry_Team_Template_Callbacks {
 	 * Constructor for the class
 	 *
 	 * @since 1.0.0
-	 * @param array $atts input attributes array
+	 * @param array $atts input attributes array.
 	 */
 	function __construct( $atts ) {
 		$this->atts = $atts;
@@ -334,7 +334,7 @@ class Cherry_Team_Template_Callbacks {
 		$defaults = array(
 			'external-link' => '',
 			'font-class'    => '',
-			'link-label'    => ''
+			'link-label'    => '',
 		);
 
 		$format = apply_filters(
@@ -434,5 +434,4 @@ class Cherry_Team_Template_Callbacks {
 		return sprintf( $format, $url, $label );
 
 	}
-
 }
