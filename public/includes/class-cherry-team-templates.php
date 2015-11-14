@@ -111,7 +111,7 @@ class Cherry_Team_Templater {
 	public function is_team_tax( $query ) {
 
 		$tax = 'group';
-		return is_tax() && ! empty( $query->queried_object->taxonomy ) && ( $tax == $query->queried_object->taxonomy );
+		return ! empty( $query->query_vars[ $tax ] );
 	}
 
 	/**
