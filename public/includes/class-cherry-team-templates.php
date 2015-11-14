@@ -30,7 +30,7 @@ class Cherry_Team_Templater {
 	 * @since 1.0.0
 	 * @var   integer
 	 */
-	public static $posts_per_archive_page = 6;
+	public static $posts_per_archive_page = null;
 
 	/**
 	 * The array of templates that this plugin tracks.
@@ -73,14 +73,6 @@ class Cherry_Team_Templater {
 		$templates = wp_get_theme()->get_page_templates();
 		$templates = array_merge( $templates, $this->templates );
 
-		/**
-		 * Filter posts per archive paghe value
-		 * @var int
-		 */
-		self::$posts_per_archive_page = apply_filters(
-			'cherry_team_posts_per_archive_page',
-			self::$posts_per_archive_page
-		);
 	}
 
 	/**
@@ -88,20 +80,59 @@ class Cherry_Team_Templater {
 	 *
 	 * @since  1.0.0
 	 * @param  object $query main query object.
-	 * @return void
+	 * @return void|bool false
 	 */
 	public function set_posts_per_archive_page( $query ) {
 
-		if ( ! is_admin()
-			&& $query->is_main_query()
-			&& (
-				$query->is_post_type_archive( CHERRY_TEAM_NAME )
-				|| ( is_tax() && ! empty( $query->queried_object->taxonomy ) && ( 'group' === $query->queried_object->taxonomy ) )
-				)
-			) {
-
-			$query->set( 'posts_per_page', self::$posts_per_archive_page );
+		// Must work only for public.
+		if ( is_admin() ) {
+			return false;
 		}
+
+		// And only for main query
+		if ( ! $query->is_main_query() ) {
+			return false;
+		}
+
+		$is_archive = $query->is_post_type_archive( CHERRY_TEAM_NAME );
+
+		if ( $is_archive || $this->is_team_tax( $query ) ) {
+			$query->set( 'posts_per_page', self::get_posts_per_archive_page() );
+		}
+	}
+
+	/**
+	 * Check if passed query is services taxonomy
+	 *
+	 * @since  1.0.5
+	 * @param  object $query current query object.
+	 * @return boolean
+	 */
+	public function is_team_tax( $query ) {
+
+		$tax = 'group';
+		return is_tax() && ! empty( $query->queried_object->taxonomy ) && ( $tax == $query->queried_object->taxonomy );
+	}
+
+	/**
+	 * Get number of posts per archive page
+	 *
+	 * @since  1.0.5
+	 * @return int
+	 */
+	public static function get_posts_per_archive_page() {
+
+		if ( null !== self::$posts_per_archive_page ) {
+			self::$posts_per_archive_page;
+		}
+
+		/**
+		 * Filter posts per archive page value
+		 * @var int
+		 */
+		self::$posts_per_archive_page = apply_filters( 'cherry_team_posts_per_archive_page', 6 );
+
+		return self::$posts_per_archive_page;
 	}
 
 	/**

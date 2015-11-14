@@ -40,7 +40,7 @@ if ( have_posts() ) :
 						'container'    => false,
 						'size'         => 'thumbnail',
 						'pager'        => true,
-						'limit'        => Cherry_Team_Templater::$posts_per_archive_page,
+						'limit'        => Cherry_Team_Templater::get_posts_per_archive_page(),
 					);
 
 					$data = new Cherry_Team_Data;

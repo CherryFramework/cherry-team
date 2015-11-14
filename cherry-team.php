@@ -89,7 +89,7 @@ if ( ! class_exists( 'Cherry_Team' ) ) {
 			 *
 			 * @since 1.0.0
 			 */
-			define( 'CHERRY_TEAM_VERSION', '1.0.4' );
+			define( 'CHERRY_TEAM_VERSION', '1.0.5' );
 
 			/**
 			 * Set the slug of the plugin.
