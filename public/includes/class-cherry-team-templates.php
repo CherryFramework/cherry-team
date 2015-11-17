@@ -53,10 +53,7 @@ class Cherry_Team_Templater {
 		add_action( 'pre_get_posts', array( $this, 'set_posts_per_archive_page' ) );
 
 		// Add a filter to the page attributes metabox to inject our template into the page template cache.
-		add_filter( 'page_attributes_dropdown_pages_args', array( $this, 'register_templates' ) );
-
-		// Add a filter to the save post in order to inject out template into the page cache.
-		add_filter( 'wp_insert_post_data', array( $this, 'register_templates' ) );
+		add_filter( 'theme_page_templates', array( $this, 'register_custom_template' ), 10, 3 );
 
 		// Add a filter to the template include in order to determine if the page has our template assigned and return it's path.
 		add_filter( 'template_include', array( $this, 'view_template' ) );
@@ -69,10 +66,24 @@ class Cherry_Team_Templater {
 			'template-team.php' => __( 'Team Page', 'cherry-team' ),
 		);
 
-		// Adding support for theme templates to be merged and shown in dropdown.
-		$templates = wp_get_theme()->get_page_templates();
-		$templates = array_merge( $templates, $this->templates );
+	}
 
+	/**
+	 * Register custom page tamplate for Services page
+	 *
+	 * @since  1.0.4
+	 * @param  array  $page_templates existing page templates array.
+	 * @param  object $instance       instanse of WP_Theme class.
+	 * @param  object $post           current post object.
+	 * @return array
+	 */
+	public function register_custom_template( $page_templates, $instance, $post ) {
+
+		if ( ! empty( $post->post_type ) && 'page' === $post->post_type ) {
+			$page_templates = array_merge( $page_templates, $this->templates );
+		}
+
+		return $page_templates;
 	}
 
 	/**
@@ -86,12 +97,12 @@ class Cherry_Team_Templater {
 
 		// Must work only for public.
 		if ( is_admin() ) {
-			return false;
+			return $query;
 		}
 
 		// And only for main query
 		if ( ! $query->is_main_query() ) {
-			return false;
+			return $query;
 		}
 
 		$is_archive = $query->is_post_type_archive( CHERRY_TEAM_NAME );
@@ -133,39 +144,6 @@ class Cherry_Team_Templater {
 		self::$posts_per_archive_page = apply_filters( 'cherry_team_posts_per_archive_page', 6 );
 
 		return self::$posts_per_archive_page;
-	}
-
-	/**
-	 * Adds our template to the pages cache in order to trick WordPress
-	 * into thinking the template file exists where it doens't really exist.
-	 *
-	 * @since  1.0.0
-	 * @param  array $atts The attributes for the page attributes dropdown.
-	 * @return array $atts The attributes for the page attributes dropdown.
-	 */
-	public function register_templates( $atts ) {
-
-		// Create the key used for the themes cache.
-		$cache_key = 'page_templates-' . md5( get_theme_root() . '/' . get_stylesheet() );
-
-		// Retrieve the cache list. If it doesn't exist, or it's empty prepare an array.
-		$templates = wp_cache_get( $cache_key, 'themes' );
-
-		if ( empty( $templates ) ) {
-			$templates = array();
-		}
-
-		// Since we've updated the cache, we need to delete the old cache.
-		wp_cache_delete( $cache_key , 'themes' );
-
-		// Now add our template to the list of templates by merging our templates
-		// with the existing templates array from the cache.
-		$templates = array_merge( $templates, $this->templates );
-
-		// Add the modified cache to allow WordPress to pick it up for listing available templates.
-		wp_cache_add( $cache_key, $templates, 'themes', 1800 );
-
-		return $atts;
 	}
 
 	/**
