@@ -9,6 +9,9 @@
  * @copyright 2014 Cherry Team
  */
 
+/**
+ * Class contains admin-related functionality
+ */
 class Cherry_Team_Admin {
 
 	/**
@@ -34,7 +37,7 @@ class Cherry_Team_Admin {
 		add_action( 'load-edit.php', array( $this, 'load_edit' ) );
 
 		// Modify the columns on the "Testimonials" screen.
-		add_filter( 'manage_edit-team_columns',        array( $this, 'edit_team_columns'   ) );
+		add_filter( 'manage_edit-team_columns',        array( $this, 'edit_team_columns' ) );
 		add_action( 'manage_team_posts_custom_column', array( $this, 'manage_team_columns' ), 10, 2 );
 	}
 
@@ -42,11 +45,12 @@ class Cherry_Team_Admin {
 	 * Loads custom meta boxes on the "Add New Testimonial" and "Edit Testimonial" screens.
 	 *
 	 * @since 1.0.0
+	 * @return void
 	 */
 	public function load_post_meta_boxes() {
 		$screen = get_current_screen();
 
-		if ( !empty( $screen->post_type ) && 'team' === $screen->post_type ) {
+		if ( ! empty( $screen->post_type ) && 'team' === $screen->post_type ) {
 			require_once( trailingslashit( CHERRY_TEAM_DIR ) . 'admin/includes/class-cherry-team-meta-boxes.php' );
 		}
 	}
@@ -59,7 +63,7 @@ class Cherry_Team_Admin {
 	public function load_edit() {
 		$screen = get_current_screen();
 
-		if ( !empty( $screen->post_type ) && 'team' === $screen->post_type ) {
+		if ( ! empty( $screen->post_type ) && 'team' === $screen->post_type ) {
 			add_action( 'admin_head', array( $this, 'print_styles' ) );
 		}
 	}
@@ -68,8 +72,10 @@ class Cherry_Team_Admin {
 	 * Style adjustments for the manage menu items screen.
 	 *
 	 * @since 1.0.0
+	 * @return void
 	 */
-	public function print_styles() { ?>
+	public function print_styles() {
+		?>
 		<style type="text/css">
 		.edit-php .wp-list-table td.thumbnail.column-thumbnail,
 		.edit-php .wp-list-table th.manage-column.column-thumbnail,
@@ -78,47 +84,50 @@ class Cherry_Team_Admin {
 			text-align: center;
 		}
 		</style>
-	<?php }
+		<?php
+	}
 
 	/**
-	 * Filters the columns on the "Testimonials" screen.
+	 * Filters the columns on the "Team" screen.
 	 *
 	 * @since  1.0.0
-	 * @param  array $post_columns
+	 * @param  array $post_columns current post table columns.
 	 * @return array
 	 */
 	public function edit_team_columns( $post_columns ) {
-		// Adds the checkbox column.
-		$columns['cb'] = $post_columns['cb'];
+		unset(
+			$post_columns['taxonomy-group'],
+			$post_columns['date']
+		);
 
-		// Add custom columns and overwrite the 'title' column.
-		$columns['title']     = __( 'Name', 'cherry-team' );
-		$columns['thumbnail'] = __( 'Photo', 'cherry-team' );
-		$columns['position']  = __( 'Position', 'cherry-team' );
-		$columns['group']     = __( 'Group', 'cherry-team' );
-		$columns['date']      = __( 'Added', 'cherry-team' );
+		// Add custom columns.
+		$post_columns['thumbnail'] = __( 'Photo', 'cherry-team' );
+		$post_columns['position']  = __( 'Position', 'cherry-team' );
+		$post_columns['group']     = __( 'Group', 'cherry-team' );
+		$post_columns['date']      = __( 'Added', 'cherry-team' );
 
 		// Return the columns.
-		return $columns;
+		return $post_columns;
 	}
 
 	/**
 	 * Add output for custom columns on the "menu items" screen.
 	 *
 	 * @since  1.0.0
-	 * @param  string $column
-	 * @param  int    $post_id
+	 * @param  string $column  current post list categories.
+	 * @param  int    $post_id current post ID.
+	 * @return void
 	 */
 	public function manage_team_columns( $column, $post_id ) {
 
-		switch( $column ) {
+		switch ( $column ) {
 
 			case 'position' :
 
 				$post_meta = get_post_meta( $post_id, CHERRY_TEAM_POSTMETA, true );
 
-				if ( !empty( $post_meta ) ) {
-					echo ( isset( $post_meta['position'] ) && !empty( $post_meta['position'] ) ) ? $post_meta['position'] : '&mdash;';
+				if ( ! empty( $post_meta ) ) {
+					echo ( isset( $post_meta['position'] ) && ! empty( $post_meta['position'] ) ) ? $post_meta['position'] : '&mdash;';
 				}
 
 				break;
@@ -127,7 +136,7 @@ class Cherry_Team_Admin {
 
 				$thumb = get_the_post_thumbnail( $post_id, array( 50, 50 ) );
 
-				echo !empty( $thumb ) ? $thumb : '&mdash;';
+				echo ! empty( $thumb ) ? $thumb : '&mdash;';
 
 				break;
 
@@ -149,12 +158,10 @@ class Cherry_Team_Admin {
 	 * @return object
 	 */
 	public static function get_instance() {
-
 		// If the single instance hasn't been set, set it now.
 		if ( null == self::$instance ) {
 			self::$instance = new self;
 		}
-
 		return self::$instance;
 	}
 }

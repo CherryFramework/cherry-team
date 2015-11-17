@@ -30,7 +30,7 @@ class Cherry_Team_Templater {
 	 * @since 1.0.0
 	 * @var   integer
 	 */
-	public static $posts_per_archive_page = 6;
+	public static $posts_per_archive_page = null;
 
 	/**
 	 * The array of templates that this plugin tracks.
@@ -53,10 +53,7 @@ class Cherry_Team_Templater {
 		add_action( 'pre_get_posts', array( $this, 'set_posts_per_archive_page' ) );
 
 		// Add a filter to the page attributes metabox to inject our template into the page template cache.
-		add_filter( 'page_attributes_dropdown_pages_args', array( $this, 'register_templates' ) );
-
-		// Add a filter to the save post in order to inject out template into the page cache.
-		add_filter( 'wp_insert_post_data', array( $this, 'register_templates' ) );
+		add_filter( 'theme_page_templates', array( $this, 'register_custom_template' ), 10, 3 );
 
 		// Add a filter to the template include in order to determine if the page has our template assigned and return it's path.
 		add_filter( 'template_include', array( $this, 'view_template' ) );
@@ -69,77 +66,92 @@ class Cherry_Team_Templater {
 			'template-team.php' => __( 'Team Page', 'cherry-team' ),
 		);
 
-		// Adding support for theme templates to be merged and shown in dropdown.
-		$templates = wp_get_theme()->get_page_templates();
-		$templates = array_merge( $templates, $this->templates );
-
-		/**
-		 * Filter posts per archive paghe value
-		 * @var int
-		 */
-		self::$posts_per_archive_page = apply_filters(
-			'cherry_team_posts_per_archive_page',
-			self::$posts_per_archive_page
-		);
 	}
 
+	/**
+	 * Register custom page tamplate for Services page
+	 *
+	 * @since  1.0.4
+	 * @param  array  $page_templates existing page templates array.
+	 * @param  object $instance       instanse of WP_Theme class.
+	 * @param  object $post           current post object.
+	 * @return array
+	 */
+	public function register_custom_template( $page_templates, $instance, $post ) {
+
+		if ( ! empty( $post->post_type ) && 'page' === $post->post_type ) {
+			$page_templates = array_merge( $page_templates, $this->templates );
+		}
+
+		return $page_templates;
+	}
+
+	/**
+	 * Setup posts number per archive page
+	 *
+	 * @since  1.0.0
+	 * @param  object $query main query object.
+	 * @return void|bool false
+	 */
 	public function set_posts_per_archive_page( $query ) {
-		// if ( ! is_admin()
-		// 	&& ( $query->is_post_type_archive( CHERRY_TEAM_NAME ) || $query->is_tax( 'group' ) )
-		// 	&& $query->is_main_query() )
-		// {
-		// 		$query->set( 'posts_per_page', self::$posts_per_archive_page );
-		// }
 
-		if ( ! is_admin()
-			&& $query->is_main_query()
-			&& (
-				$query->is_post_type_archive( CHERRY_TEAM_NAME )
-				|| ( is_tax() && !empty( $query->queried_object->taxonomy ) && ( 'group' === $query->queried_object->taxonomy ) )
-				)
-			) {
+		// Must work only for public.
+		if ( is_admin() ) {
+			return $query;
+		}
 
-			$query->set( 'posts_per_page', self::$posts_per_archive_page );
+		// And only for main query
+		if ( ! $query->is_main_query() ) {
+			return $query;
+		}
+
+		$is_archive = $query->is_post_type_archive( CHERRY_TEAM_NAME );
+
+		if ( $is_archive || $this->is_team_tax( $query ) ) {
+			$query->set( 'posts_per_page', self::get_posts_per_archive_page() );
 		}
 	}
 
 	/**
-	 * Adds our template to the pages cache in order to trick WordPress
-	 * into thinking the template file exists where it doens't really exist.
+	 * Check if passed query is services taxonomy
 	 *
-	 * @since  1.0.0
-	 * @param  array $atts The attributes for the page attributes dropdown.
-	 * @return array $atts The attributes for the page attributes dropdown.
+	 * @since  1.0.5
+	 * @param  object $query current query object.
+	 * @return boolean
 	 */
-	public function register_templates( $atts ) {
+	public function is_team_tax( $query ) {
 
-		// Create the key used for the themes cache.
-		$cache_key = 'page_templates-' . md5( get_theme_root() . '/' . get_stylesheet() );
+		$tax = 'group';
+		return ! empty( $query->query_vars[ $tax ] );
+	}
 
-		// Retrieve the cache list. If it doesn't exist, or it's empty prepare an array.
-		$templates = wp_cache_get( $cache_key, 'themes' );
+	/**
+	 * Get number of posts per archive page
+	 *
+	 * @since  1.0.5
+	 * @return int
+	 */
+	public static function get_posts_per_archive_page() {
 
-		if ( empty( $templates ) ) {
-			$templates = array();
+		if ( null !== self::$posts_per_archive_page ) {
+			self::$posts_per_archive_page;
 		}
 
-		// Since we've updated the cache, we need to delete the old cache.
-		wp_cache_delete( $cache_key , 'themes');
+		/**
+		 * Filter posts per archive page value
+		 * @var int
+		 */
+		self::$posts_per_archive_page = apply_filters( 'cherry_team_posts_per_archive_page', 6 );
 
-		// Now add our template to the list of templates by merging our templates
-		// with the existing templates array from the cache.
-		$templates = array_merge( $templates, $this->templates );
-
-		// Add the modified cache to allow WordPress to pick it up for listing available templates.
-		wp_cache_add( $cache_key, $templates, 'themes', 1800 );
-
-		return $atts;
+		return self::$posts_per_archive_page;
 	}
 
 	/**
 	 * Checks if the template is assigned to the page.
 	 *
-	 * @since 1.0.0
+	 * @since  1.0.0
+	 * @param  string $template current template name.
+	 * @return string
 	 */
 	public function view_template( $template ) {
 
@@ -153,7 +165,6 @@ class Cherry_Team_Templater {
 			if ( file_exists( $file ) ) {
 				return $file;
 			}
-
 		}
 
 		if ( ! is_page( $post ) ) {
@@ -162,7 +173,7 @@ class Cherry_Team_Templater {
 
 		$page_template_meta = get_post_meta( $post->ID, '_wp_page_template', true );
 
-		if ( !isset( $this->templates[ $page_template_meta ] ) ) {
+		if ( ! isset( $this->templates[ $page_template_meta ] ) ) {
 			return $template;
 		}
 
@@ -198,11 +209,10 @@ class Cherry_Team_Templater {
 	 * @return object
 	 */
 	public static function get_instance() {
-
 		// If the single instance hasn't been set, set it now.
-		if ( null == self::$instance )
+		if ( null == self::$instance ) {
 			self::$instance = new self;
-
+		}
 		return self::$instance;
 	}
 }

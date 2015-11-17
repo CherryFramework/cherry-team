@@ -3,22 +3,27 @@
  * Plugin Name: Cherry Team
  * Plugin URI:  http://www.cherryframework.com/
  * Description: A team management plugin for WordPress.
- * Version:     1.0.4
+ * Version:     1.0.5
  * Author:      Cherry Team
  * Author URI:  http://www.cherryframework.com/
  * Text Domain: cherry-team
  * License:     GPL-3.0+
  * License URI: http://www.gnu.org/licenses/gpl-3.0.txt
  * Domain Path: /languages
+ *
+ * @package  Cherry Team
+ * @category Core
+ * @author   Cherry Team
+ * @license  GPL-2.0+
  */
 
 // If this file is called directly, abort.
-if ( !defined( 'WPINC' ) ) {
+if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
 // If class 'Cherry_Team' not exists.
-if ( !class_exists( 'Cherry_Team' ) ) {
+if ( ! class_exists( 'Cherry_Team' ) ) {
 
 	/**
 	 * Sets up and initializes the Cherry Team plugin.
@@ -61,7 +66,7 @@ if ( !class_exists( 'Cherry_Team' ) ) {
 			add_filter( 'cherry_get_single_post_layout', array( $this, 'get_single_option' ),  11, 2 );
 
 			// Register activation and deactivation hook.
-			register_activation_hook( __FILE__, array( __CLASS__, 'activation'     ) );
+			register_activation_hook( __FILE__, array( __CLASS__, 'activation' ) );
 			register_deactivation_hook( __FILE__, array( __CLASS__, 'deactivation' ) );
 		}
 
@@ -84,7 +89,7 @@ if ( !class_exists( 'Cherry_Team' ) ) {
 			 *
 			 * @since 1.0.0
 			 */
-			define( 'CHERRY_TEAM_VERSION', '1.0.4' );
+			define( 'CHERRY_TEAM_VERSION', '1.0.5' );
 
 			/**
 			 * Set the slug of the plugin.
@@ -152,7 +157,7 @@ if ( !class_exists( 'Cherry_Team' ) ) {
 				$Cherry_Plugin_Update -> init( array(
 						'version'			=> CHERRY_TEAM_VERSION,
 						'slug'				=> CHERRY_TEAM_SLUG,
-						'repository_name'	=> CHERRY_TEAM_SLUG
+						'repository_name'	=> CHERRY_TEAM_SLUG,
 				));
 			}
 		}
@@ -262,9 +267,10 @@ if ( !class_exists( 'Cherry_Team' ) ) {
 		 *
 		 * @since  1.0.0
 		 *
-		 * @param int     $$post_id post ID to get meta for
-		 * @param string  $name     meta name to get
-		 * @param mixed   $default  default meta value
+		 * @param  int    $post_id post ID to get meta for.
+		 * @param  string $name    meta name to get.
+		 * @param  mixed  $default default meta value.
+		 * @return mixed
 		 */
 		public static function get_meta( $post_id = null, $name, $default = false ) {
 
@@ -272,21 +278,23 @@ if ( !class_exists( 'Cherry_Team' ) ) {
 
 			$meta = get_post_meta( $post_id, CHERRY_TEAM_POSTMETA, true );
 
-			if ( ! $meta || ! is_array( $meta ) || ! isset( $meta[$name] ) ) {
+			if ( ! $meta || ! is_array( $meta ) || ! isset( $meta[ $name ] ) ) {
 				return $default;
 			}
 
-			return $meta[$name];
+			return $meta[ $name ];
 
 		}
 
 		/**
 		 * Adds a option in `Grid -> Layouts` subsection.
 		 *
-		 * @since 1.0.0
-		 * @param array $sections
+		 * @since  1.0.0
+		 * @param  array $layouts_options current options array.
+		 * @return array
 		 */
 		public function add_cherry_options( $layouts_options ) {
+
 			$layouts_options['single-team-layout'] = array(
 				'type'        => 'radio',
 				'title'       => __( 'Team posts', 'cherry-team' ),
@@ -321,7 +329,7 @@ if ( !class_exists( 'Cherry_Team' ) ) {
 						'label'   => __( 'No sidebar', 'cherry-team' ),
 						'img_src' => get_template_directory_uri() . '/lib/admin/assets/images/svg/page-layout-fullwidth.svg',
 					),
-				)
+				),
 			);
 
 			return $layouts_options;
@@ -369,11 +377,10 @@ if ( !class_exists( 'Cherry_Team' ) ) {
 		 * @return object
 		 */
 		public static function get_instance() {
-
 			// If the single instance hasn't been set, set it now.
-			if ( null == self::$instance )
+			if ( null == self::$instance ) {
 				self::$instance = new self;
-
+			}
 			return self::$instance;
 		}
 	}

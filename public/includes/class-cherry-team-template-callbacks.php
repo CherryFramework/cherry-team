@@ -10,7 +10,7 @@
  */
 
 // If this file is called directly, abort.
-if ( !defined( 'WPINC' ) ) {
+if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
@@ -39,6 +39,12 @@ class Cherry_Team_Template_Callbacks {
 	 */
 	public $post_meta = null;
 
+	/**
+	 * Constructor for the class
+	 *
+	 * @since 1.0.0
+	 * @param array $atts input attributes array.
+	 */
 	function __construct( $atts ) {
 		$this->atts = $atts;
 	}
@@ -131,7 +137,10 @@ class Cherry_Team_Template_Callbacks {
 
 	/**
 	 * Get post thumbnail
-	 * @since 1.0.0
+	 *
+	 * @since  1.0.0
+	 * @param  string $link is linked image or not.
+	 * @return string
 	 */
 	public function get_photo( $link = 'link' ) {
 
@@ -159,7 +168,9 @@ class Cherry_Team_Template_Callbacks {
 
 	/**
 	 * Get team memeber name (post title)
-	 * @since 1.0.0
+	 *
+	 * @since  1.0.0
+	 * @return string
 	 */
 	public function get_name() {
 		global $post;
@@ -170,7 +181,9 @@ class Cherry_Team_Template_Callbacks {
 
 	/**
 	 * Get team member position
+	 *
 	 * @since 1.0.0
+	 * @return string
 	 */
 	public function get_position() {
 
@@ -184,7 +197,9 @@ class Cherry_Team_Template_Callbacks {
 
 	/**
 	 * Get team member location
-	 * @since 1.0.0
+	 *
+	 * @since  1.0.0
+	 * @return string
 	 */
 	public function get_location() {
 
@@ -198,7 +213,9 @@ class Cherry_Team_Template_Callbacks {
 
 	/**
 	 * Get team member email
-	 * @since 1.0.0
+	 *
+	 * @since  1.0.0
+	 * @return string
 	 */
 	public function get_email() {
 
@@ -214,7 +231,9 @@ class Cherry_Team_Template_Callbacks {
 
 	/**
 	 * Get team member phone number
-	 * @since 1.0.0
+	 *
+	 * @since  1.0.0
+	 * @return string
 	 */
 	public function get_phone() {
 
@@ -228,6 +247,9 @@ class Cherry_Team_Template_Callbacks {
 
 	/**
 	 * Get team memeber website HTML markup
+	 *
+	 * @since  1.0.0
+	 * @return string
 	 */
 	public function get_website() {
 
@@ -244,7 +266,9 @@ class Cherry_Team_Template_Callbacks {
 
 	/**
 	 * Get post exerpt
+	 *
 	 * @since 1.0.0
+	 * @return string
 	 */
 	public function get_excerpt() {
 
@@ -273,7 +297,9 @@ class Cherry_Team_Template_Callbacks {
 
 	/**
 	 * Get post content
+	 *
 	 * @since  1.0.0
+	 * @return string
 	 */
 	public function get_content() {
 
@@ -290,7 +316,9 @@ class Cherry_Team_Template_Callbacks {
 
 	/**
 	 * Get team memeber socials list
-	 * @since 1.0.0
+	 *
+	 * @since  1.0.0
+	 * @return string
 	 */
 	public function get_socials() {
 
@@ -306,7 +334,7 @@ class Cherry_Team_Template_Callbacks {
 		$defaults = array(
 			'external-link' => '',
 			'font-class'    => '',
-			'link-label'    => ''
+			'link-label'    => '',
 		);
 
 		$format = apply_filters(
@@ -347,9 +375,9 @@ class Cherry_Team_Template_Callbacks {
 	 * Wrap single team item into HTML wrapper with custom class
 	 *
 	 * @since  1.0.0
-	 *
-	 * @param  string $value meta value
-	 * @param  string $class custom CSS class
+	 * @param  string $value meta value.
+	 * @param  string $class custom CSS class.
+	 * @return string
 	 */
 	public function meta_wrap( $value = null, $class = null ) {
 
@@ -371,8 +399,8 @@ class Cherry_Team_Template_Callbacks {
 	 * Wrap person email into link with mailto:
 	 *
 	 * @since  1.0.0
-	 *
-	 * @param  string $email Person email
+	 * @param  string $email Person email.
+	 * @return string
 	 */
 	public function mail_wrap( $email ) {
 
@@ -389,8 +417,9 @@ class Cherry_Team_Template_Callbacks {
 	 *
 	 * @since  1.0.0
 	 *
-	 * @param  string $url  personal wesite URL
-	 * @param  string $name person name
+	 * @param  string $url  personal wesite URL.
+	 * @param  string $name person name.
+	 * @return string
 	 */
 	public function get_website_html( $url = null, $name = null ) {
 
@@ -405,5 +434,4 @@ class Cherry_Team_Template_Callbacks {
 		return sprintf( $format, $url, $label );
 
 	}
-
 }

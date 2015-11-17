@@ -1,6 +1,12 @@
 <?php
 /**
  * The Template for displaying archive CPT Team.
+ *
+ * @package   Cherry_Team
+ * @author    Cherry Team
+ * @license   GPL-2.0+
+ * @link      http://www.cherryframework.com/
+ * @copyright 2015 Cherry Team
  */
 
 global $wp_query;
@@ -16,8 +22,8 @@ $args = array(
 	'col_lg'       => false,
 	'size'         => 'thumbnail',
 	'pager'        => true,
-	'limit'        => Cherry_Team_Templater::$posts_per_archive_page,
-	'group'        => !empty( $wp_query->query_vars['term'] ) ? $wp_query->query_vars['term'] : '',
+	'limit'        => Cherry_Team_Templater::get_posts_per_archive_page(),
+	'group'        => ! empty( $wp_query->query_vars['term'] ) ? $wp_query->query_vars['term'] : '',
 );
 $data = new Cherry_Team_Data;
 $data->the_team( $args );

@@ -1,10 +1,21 @@
 <?php
-	/**
-	 * Fires before a widget form.
-	 *
-	 * @since 1.0.0
-	 */
-	do_action( 'cherry_team_widget_form_before' );
+/**
+ * View for widget control form
+ *
+ * @package   Cherry_Team
+ * @author    Cherry Team
+ * @license   GPL-2.0+
+ * @link      http://www.cherryframework.com/
+ * @copyright 2015 Cherry Team
+ */
+
+/**
+ * Fires before a widget form.
+ *
+ * @since 1.0.0
+ */
+do_action( 'cherry_team_widget_form_before' );
+
 ?>
 <!-- Widget Title: Text Input -->
 <p>
@@ -67,4 +78,3 @@
 	 * @since 1.0.0
 	 */
 	do_action( 'cherry_team_widget_form_after' );
-?>

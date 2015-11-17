@@ -32,9 +32,9 @@ class Cherry_Team_Widget extends WP_Widget {
 	 */
 	private $data;
 
-	/*--------------------------------------------------*/
-	/* Constructor
-	/*--------------------------------------------------*/
+	/**
+	 * Constructor for the class
+	 */
 	public function __construct() {
 
 		parent::__construct(
@@ -42,7 +42,7 @@ class Cherry_Team_Widget extends WP_Widget {
 			__( 'Cherry Team', 'cherry-team' ),
 			array(
 				'classname'   => $this->get_widget_slug(),
-				'description' => __( "Your site's most recent Team.", 'cherry-team' )
+				'description' => __( "Your site's most recent Team.", 'cherry-team' ),
 			)
 		);
 
@@ -61,7 +61,7 @@ class Cherry_Team_Widget extends WP_Widget {
 	 * @since  1.0.0
 	 * @param  string $method Name of the method being called.
 	 * @param  array  $args   Array containing the parameters passed to the $name'ed method.
-	 * @return void
+	 * @return mixed
 	 */
 	public function __call( $method, $args ) {
 		return $this->data->$method( $args[0] );
@@ -77,30 +77,29 @@ class Cherry_Team_Widget extends WP_Widget {
 		return $this->widget_slug;
 	}
 
-	/*--------------------------------------------------*/
-	/* Widget API Functions
-	/*--------------------------------------------------*/
-
 	/**
 	 * Outputs the content of the widget.
 	 *
 	 * @since 1.0.0
-	 * @param array args     The array of form elements.
-	 * @param array instance The current instance of the widget.
+	 * @param array $args     The array of form elements.
+	 * @param array $instance The current instance of the widget.
 	 */
 	public function widget( $args, $instance ) {
 
 		// Check if there is a cached output.
 		$cache = wp_cache_get( $this->get_widget_slug(), 'widget' );
 
-		if ( !is_array( $cache ) )
+		if ( ! is_array( $cache ) ) {
 			$cache = array();
+		}
 
-		if ( !isset( $args['widget_id'] ) )
+		if ( ! isset( $args['widget_id'] ) ) {
 			$args['widget_id'] = $this->widget_slug;
+		}
 
-		if ( isset( $cache[ $args['widget_id'] ] ) )
+		if ( isset( $cache[ $args['widget_id'] ] ) ) {
 			return print $cache[ $args['widget_id'] ];
+		}
 
 		/**
 		 * Filter the widget title.
@@ -180,7 +179,6 @@ class Cherry_Team_Widget extends WP_Widget {
 		$widget_string .= $this->the_team( $atts );
 		$widget_string .= $args['after_widget'];
 
-
 		$cache[ $args['widget_id'] ] = $widget_string;
 
 		wp_cache_set( $this->get_widget_slug(), $cache, 'widget' );
@@ -195,6 +193,11 @@ class Cherry_Team_Widget extends WP_Widget {
 		do_action( $this->widget_slug . '_after' );
 	}
 
+	/**
+	 * Clear widget cahce.
+	 *
+	 * @return  void
+	 */
 	public function flush_widget_cache() {
 		wp_cache_delete( $this->get_widget_slug(), 'widget' );
 	}
@@ -202,9 +205,10 @@ class Cherry_Team_Widget extends WP_Widget {
 	/**
 	 * Processes the widget's options to be saved.
 	 *
-	 * @since 1.0.0
-	 * @param array new_instance The new instance of values to be generated via the update.
-	 * @param array old_instance The previous instance of values before the update.
+	 * @since  1.0.0
+	 * @param  array $new_instance The new instance of values to be generated via the update.
+	 * @param  array $old_instance The previous instance of values before the update.
+	 * @return array
 	 */
 	public function update( $new_instance, $old_instance ) {
 		$instance = $old_instance;
@@ -234,9 +238,10 @@ class Cherry_Team_Widget extends WP_Widget {
 	 * Generates the administration form for the widget.
 	 *
 	 * @since 1.0.0
-	 * @param array instance The array of keys and values for the widget.
+	 * @param array $instance The array of keys and values for the widget.
 	 */
 	public function form( $instance ) {
+
 		/**
 		 * Filters some default widget settings.
 		 *
@@ -270,10 +275,14 @@ class Cherry_Team_Widget extends WP_Widget {
 		include( apply_filters( 'cherry_team_widget_form_file', trailingslashit( CHERRY_TEAM_DIR ) . 'admin/views/widget.php' ) );
 	}
 
-	/*--------------------------------------------------*/
-	/* Public/Protected Functions
-	/*--------------------------------------------------*/
-
+	/**
+	 * Get an array of the available orderby options.
+	 *
+	 * @since  1.0.0
+	 * @param  string $template template name.
+	 * @param  array  $args     arguments array.
+	 * @return array
+	 */
 	public function item_template( $template, $args ) {
 		return '<blockquote>%%TEXT%% %%AVATAR%% %%AUTHOR%%</blockquote>';
 	}
@@ -304,10 +313,9 @@ class Cherry_Team_Widget extends WP_Widget {
 	protected function get_order_options() {
 		return array(
 			'ASC'  => __( 'Ascending', 'cherry-team' ),
-			'DESC' => __( 'Descending', 'cherry-team' )
+			'DESC' => __( 'Descending', 'cherry-team' ),
 			);
 	}
-
 }
 
 add_action( 'widgets_init', create_function( '', 'register_widget("Cherry_Team_Widget");' ) );

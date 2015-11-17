@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: blank\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-07-30 16:53+0300\n"
+"POT-Creation-Date: 2015-10-26 19:04+0200\n"
 "PO-Revision-Date: 2015-04-06 06:14+0300\n"
 "Last-Translator: Vladimir Anokhin <ano.vladimir@gmail.com>\n"
 "Language-Team: Cherry Team <support@cherryframework.com>\n"
@@ -15,17 +15,17 @@ msgstr ""
 "esc_attr__;_x:1,2c;_n:1,2\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-SourceCharset: UTF-8\n"
-"X-Generator: Poedit 1.8.3\n"
+"X-Generator: Poedit 1.8.6\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Poedit-SearchPath-0: .\n"
 
 #: admin/includes/class-cherry-team-admin.php:95
-#: public/includes/class-cherry-team-shortcode.php:322
+#: public/includes/class-cherry-team-shortcode.php:329
 msgid "Name"
 msgstr ""
 
 #: admin/includes/class-cherry-team-admin.php:96
-#: public/includes/class-cherry-team-shortcode.php:316
+#: public/includes/class-cherry-team-shortcode.php:323
 msgid "Photo"
 msgstr ""
 
@@ -165,7 +165,7 @@ msgstr ""
 
 #: public/includes/class-cherry-team-registration.php:49
 #: public/includes/class-cherry-team-registration.php:50
-#: public/includes/class-cherry-team-shortcode.php:105
+#: public/includes/class-cherry-team-shortcode.php:107
 msgid "Team"
 msgstr ""
 
@@ -251,208 +251,208 @@ msgid "No groups found."
 msgstr ""
 
 #: public/includes/class-cherry-team-registration.php:120
-#: public/includes/class-cherry-team-shortcode.php:152
+#: public/includes/class-cherry-team-shortcode.php:154
 msgid "Groups"
 msgstr ""
 
-#: public/includes/class-cherry-team-shortcode.php:106
+#: public/includes/class-cherry-team-shortcode.php:108
 msgid "Cherry team shortcode"
 msgstr ""
 
-#: public/includes/class-cherry-team-shortcode.php:116
+#: public/includes/class-cherry-team-shortcode.php:118
 msgid "Limit"
 msgstr ""
 
-#: public/includes/class-cherry-team-shortcode.php:117
+#: public/includes/class-cherry-team-shortcode.php:119
 msgid "Maximum number of posts."
 msgstr ""
 
-#: public/includes/class-cherry-team-shortcode.php:122
-#: public/includes/class-cherry-team-widget.php:304
+#: public/includes/class-cherry-team-shortcode.php:124
+#: public/includes/class-cherry-team-widget.php:307
 msgid "Descending"
 msgstr ""
 
-#: public/includes/class-cherry-team-shortcode.php:123
-#: public/includes/class-cherry-team-widget.php:303
+#: public/includes/class-cherry-team-shortcode.php:125
+#: public/includes/class-cherry-team-widget.php:306
 msgid "Ascending"
 msgstr ""
 
-#: public/includes/class-cherry-team-shortcode.php:126
+#: public/includes/class-cherry-team-shortcode.php:128
 msgid "Order"
 msgstr ""
 
-#: public/includes/class-cherry-team-shortcode.php:127
+#: public/includes/class-cherry-team-shortcode.php:129
 msgid "Posts order"
 msgstr ""
 
-#: public/includes/class-cherry-team-shortcode.php:132
+#: public/includes/class-cherry-team-shortcode.php:134
 msgid "None"
 msgstr ""
 
-#: public/includes/class-cherry-team-shortcode.php:133
+#: public/includes/class-cherry-team-shortcode.php:135
 msgid "Post ID"
 msgstr ""
 
-#: public/includes/class-cherry-team-shortcode.php:134
+#: public/includes/class-cherry-team-shortcode.php:136
 msgid "Post author"
 msgstr ""
 
-#: public/includes/class-cherry-team-shortcode.php:135
+#: public/includes/class-cherry-team-shortcode.php:137
 msgid "Post title"
 msgstr ""
 
-#: public/includes/class-cherry-team-shortcode.php:136
+#: public/includes/class-cherry-team-shortcode.php:138
 msgid "Post slug"
 msgstr ""
 
-#: public/includes/class-cherry-team-shortcode.php:137
+#: public/includes/class-cherry-team-shortcode.php:139
 msgid "Date"
 msgstr ""
 
-#: public/includes/class-cherry-team-shortcode.php:138
+#: public/includes/class-cherry-team-shortcode.php:140
 msgid "Last modified date"
 msgstr ""
 
-#: public/includes/class-cherry-team-shortcode.php:139
+#: public/includes/class-cherry-team-shortcode.php:141
 msgid "Random"
 msgstr ""
 
-#: public/includes/class-cherry-team-shortcode.php:140
+#: public/includes/class-cherry-team-shortcode.php:142
 msgid "Comments number"
 msgstr ""
 
-#: public/includes/class-cherry-team-shortcode.php:141
+#: public/includes/class-cherry-team-shortcode.php:143
 msgid "Menu order"
 msgstr ""
 
-#: public/includes/class-cherry-team-shortcode.php:144
+#: public/includes/class-cherry-team-shortcode.php:146
 msgid "Order by"
 msgstr ""
 
-#: public/includes/class-cherry-team-shortcode.php:145
+#: public/includes/class-cherry-team-shortcode.php:147
 msgid "Order posts by"
 msgstr ""
 
-#: public/includes/class-cherry-team-shortcode.php:153
+#: public/includes/class-cherry-team-shortcode.php:155
 msgid "Select groups to show team members from"
 msgstr ""
 
-#: public/includes/class-cherry-team-shortcode.php:157
+#: public/includes/class-cherry-team-shortcode.php:159
 msgid "Post ID's"
 msgstr ""
 
-#: public/includes/class-cherry-team-shortcode.php:158
+#: public/includes/class-cherry-team-shortcode.php:160
 msgid "Enter comma separated ID's of the posts that you want to show"
 msgstr ""
 
-#: public/includes/class-cherry-team-shortcode.php:163
-#: public/includes/class-cherry-team-shortcode.php:164
+#: public/includes/class-cherry-team-shortcode.php:165
+#: public/includes/class-cherry-team-shortcode.php:166
 msgid "Show name?"
 msgstr ""
 
-#: public/includes/class-cherry-team-shortcode.php:169
-#: public/includes/class-cherry-team-shortcode.php:170
+#: public/includes/class-cherry-team-shortcode.php:171
+#: public/includes/class-cherry-team-shortcode.php:172
 msgid "Show photo?"
 msgstr ""
 
-#: public/includes/class-cherry-team-shortcode.php:176
+#: public/includes/class-cherry-team-shortcode.php:178
 msgid "Featured image size"
 msgstr ""
 
-#: public/includes/class-cherry-team-shortcode.php:177
+#: public/includes/class-cherry-team-shortcode.php:179
 msgid "Select size for a Featured image"
 msgstr ""
 
-#: public/includes/class-cherry-team-shortcode.php:185
+#: public/includes/class-cherry-team-shortcode.php:187
 msgid "Excerpt Length"
 msgstr ""
 
-#: public/includes/class-cherry-team-shortcode.php:186
+#: public/includes/class-cherry-team-shortcode.php:188
 msgid "Excerpt length (if used in template)"
 msgstr ""
 
-#: public/includes/class-cherry-team-shortcode.php:191
+#: public/includes/class-cherry-team-shortcode.php:198
 msgid "Column class"
 msgstr ""
 
-#: public/includes/class-cherry-team-shortcode.php:192
+#: public/includes/class-cherry-team-shortcode.php:199
 msgid "Column class for each item."
 msgstr ""
 
-#: public/includes/class-cherry-team-shortcode.php:200
+#: public/includes/class-cherry-team-shortcode.php:207
 msgid "Template"
 msgstr ""
 
-#: public/includes/class-cherry-team-shortcode.php:201
+#: public/includes/class-cherry-team-shortcode.php:208
 msgid "Shortcode template"
 msgstr ""
 
-#: public/includes/class-cherry-team-shortcode.php:205
+#: public/includes/class-cherry-team-shortcode.php:212
 msgid "Class"
 msgstr ""
 
-#: public/includes/class-cherry-team-shortcode.php:206
+#: public/includes/class-cherry-team-shortcode.php:213
 msgid "Extra CSS class"
 msgstr ""
 
-#: public/includes/class-cherry-team-shortcode.php:225
+#: public/includes/class-cherry-team-shortcode.php:232
 msgid "Position (Team only)"
 msgstr ""
 
-#: public/includes/class-cherry-team-shortcode.php:231
+#: public/includes/class-cherry-team-shortcode.php:238
 msgid "Location (Team only)"
 msgstr ""
 
-#: public/includes/class-cherry-team-shortcode.php:237
+#: public/includes/class-cherry-team-shortcode.php:244
 msgid "Telephone (Team only)"
 msgstr ""
 
-#: public/includes/class-cherry-team-shortcode.php:243
+#: public/includes/class-cherry-team-shortcode.php:250
 msgid "Email (Team only)"
 msgstr ""
 
-#: public/includes/class-cherry-team-shortcode.php:249
+#: public/includes/class-cherry-team-shortcode.php:256
 msgid "Personal website (Team only)"
 msgstr ""
 
-#: public/includes/class-cherry-team-shortcode.php:255
+#: public/includes/class-cherry-team-shortcode.php:262
 msgid "Social (Team only)"
 msgstr ""
 
-#: public/includes/class-cherry-team-shortcode.php:328
+#: public/includes/class-cherry-team-shortcode.php:335
 msgid "Person description"
 msgstr ""
 
-#: public/includes/class-cherry-team-shortcode.php:334
+#: public/includes/class-cherry-team-shortcode.php:341
 msgid "Short description"
 msgstr ""
 
-#: public/includes/class-cherry-team-shortcode.php:340
+#: public/includes/class-cherry-team-shortcode.php:347
 msgid "Person Position"
 msgstr ""
 
-#: public/includes/class-cherry-team-shortcode.php:346
+#: public/includes/class-cherry-team-shortcode.php:353
 msgid "Person Location"
 msgstr ""
 
-#: public/includes/class-cherry-team-shortcode.php:352
+#: public/includes/class-cherry-team-shortcode.php:359
 msgid "Telephone"
 msgstr ""
 
-#: public/includes/class-cherry-team-shortcode.php:358
+#: public/includes/class-cherry-team-shortcode.php:365
 msgid "Email"
 msgstr ""
 
-#: public/includes/class-cherry-team-shortcode.php:364
-#: public/includes/class-cherry-team-template-callbacks.php:313
+#: public/includes/class-cherry-team-shortcode.php:371
+#: public/includes/class-cherry-team-template-callbacks.php:403
 msgid "Personal website"
 msgstr ""
 
-#: public/includes/class-cherry-team-shortcode.php:370
+#: public/includes/class-cherry-team-shortcode.php:377
 msgid "Person social links block"
 msgstr ""
 
-#: public/includes/class-cherry-team-shortcode.php:376
+#: public/includes/class-cherry-team-shortcode.php:383
 msgid "Profile page link"
 msgstr ""
 
@@ -468,26 +468,26 @@ msgstr ""
 msgid "Your site's most recent Team."
 msgstr ""
 
-#: public/includes/class-cherry-team-widget.php:286
+#: public/includes/class-cherry-team-widget.php:289
 msgid "No Order"
 msgstr ""
 
-#: public/includes/class-cherry-team-widget.php:287
+#: public/includes/class-cherry-team-widget.php:290
 msgid "Entry ID"
 msgstr ""
 
-#: public/includes/class-cherry-team-widget.php:288
+#: public/includes/class-cherry-team-widget.php:291
 msgid "Title"
 msgstr ""
 
-#: public/includes/class-cherry-team-widget.php:289
+#: public/includes/class-cherry-team-widget.php:292
 msgid "Date Added"
 msgstr ""
 
-#: public/includes/class-cherry-team-widget.php:290
+#: public/includes/class-cherry-team-widget.php:293
 msgid "Attributes Order"
 msgstr ""
 
-#: public/includes/class-cherry-team-widget.php:291
+#: public/includes/class-cherry-team-widget.php:294
 msgid "Random Order"
 msgstr ""

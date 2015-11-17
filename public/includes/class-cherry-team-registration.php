@@ -77,7 +77,7 @@ class Cherry_Team_Registration {
 			'rewrite'         => array(
 				'slug'       => 'team-view',
 				'with_front' => false,
-				'feeds'      => true
+				'feeds'      => true,
 			),
 			'query_var'       => true,
 			'menu_position'   => null,
@@ -141,11 +141,10 @@ class Cherry_Team_Registration {
 	 * @return object
 	 */
 	public static function get_instance() {
-
 		// If the single instance hasn't been set, set it now.
-		if ( null == self::$instance )
+		if ( null == self::$instance ) {
 			self::$instance = new self;
-
+		}
 		return self::$instance;
 	}
 }
