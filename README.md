@@ -4,6 +4,14 @@ A team management plugin for WordPress.
 
 ##Change log##
 
+
+#### v1.0.5 ####
+
+* UPD: new custom page templates registration logic
+* FIX: setting posts per archive page
+* FIX: PHP code style
+* FIX: WPML compatibility
+
 #### v1.0.4 ####
 
 * FIX: Display flex on iOS
