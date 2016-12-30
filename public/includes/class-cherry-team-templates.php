@@ -61,11 +61,23 @@ class Cherry_Team_Templater {
 		// Add a filter to load a custom template for a given post.
 		add_filter( 'single_template', array( $this, 'get_single_template' ) );
 
+		add_filter( 'theme_page_templates', array( $this, 'add_templates' ) );
+
 		// Add your templates to this array.
 		$this->templates = array(
 			'template-team.php' => __( 'Team Page', 'cherry-team' ),
 		);
 
+	}
+
+	/**
+	 * Add services page templates.
+	 *
+	 * @param  array $templates Existing templates array.
+	 * @return array
+	 */
+	public function add_templates( $templates = array() ) {
+		return array_merge( $templates, $this->templates );
 	}
 
 	/**
