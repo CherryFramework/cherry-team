@@ -280,6 +280,10 @@ class Cherry_Team_Meta_Boxes {
 	 */
 	public function sanitize_socials( $input ) {
 
+		if ( ! is_array( $input ) || empty( $input ) ) {
+			return array();
+		}
+
 		array_walk_recursive( $input, array( $this, 'sanitize_socials_item' ) );
 		return $input;
 
